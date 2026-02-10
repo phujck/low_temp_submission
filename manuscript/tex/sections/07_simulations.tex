@@ -9,7 +9,7 @@ that reproduce the qualitative structure discussed above. The scripts are in
 \texttt{simulations/run.ps1}. The default ``safe'' profile uses small truncations
 and single-threaded linear algebra to reduce resource usage.
 
-\paragraph{Commuting QND benchmark.}
+
 We take a four-level system with diagonal
 $H_Q=\mathrm{diag}(0,0.8,1.6,2.4)$ and $f=\mathrm{diag}(0,1,2,3)$, coupled to a
 finite set of harmonic bath modes. For each inverse temperature $\beta$ we
@@ -21,7 +21,7 @@ relative Frobenius error in \texttt{results/commuting\_check.csv}. Residual
 error is dominated by bath truncation and decreases with larger oscillator
 cutoffs.
 
-\paragraph{Noncommuting qubit check.}
+
 We take a qubit with $H_Q=0.6\,\sigma_z$ and
 coupling $f=\sigma_x+\eta\,\sigma_z$ (with $\eta=0.3$ in the default profile),
 again coupled to a single truncated oscillator. We compute
