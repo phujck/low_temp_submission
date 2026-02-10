@@ -5,7 +5,7 @@ The preceding sections derived the Hamiltonian of mean force by
 exploiting two simplifications simultaneously: the bath was Gaussian
 (harmonic oscillators with linear coupling), and the system operators
 $H_Q$ and $f$ commuted. Together these ensured that the
-Hubbard--Stratonovich auxiliary field decoupled the influence functional
+Hubbard - Stratonovich auxiliary field decoupled the influence functional
 and that the resulting time-ordered exponential collapsed to an ordinary
 exponential.
 
@@ -19,7 +19,7 @@ an ordered-cumulant expansion and identifying when it can be neglected.
 
 
 Consider the bath trace that generates the influence functional. For a
-general bath---not necessarily harmonic---the coupling operator
+general bath - not necessarily harmonic - the coupling operator
 $B:=\sum_k c_k x_k$ from Eq.~\eqref{eq:HI_model} need not produce Gaussian
 statistics. The averaged time-ordered exponential admits a formal
 cumulant expansion~\cite{Kubo1962,Kubo1963}
@@ -49,7 +49,7 @@ time-ordering operator $\hat{\mathcal T}$ must in general be retained
 inside each cumulant; the resulting objects are sometimes called
 \emph{ordered cumulants}~\cite{Fox1976,Fox1979,Kubo1962}. However,
 when $B(\tau)$ is a $c$-number process (as after the
-Hubbard--Stratonovich transformation of
+Hubbard - Stratonovich transformation of
 Sec.~\ref{sec:influence_to_hmf}), the ordered cumulants reduce to
 ordinary scalar cumulants and the expansion becomes exact without
 ordering subtleties~\cite{Tanimura2006}.
@@ -73,8 +73,8 @@ series Eq.~\eqref{eq:ordered_cumulant} therefore terminates at $n=2$:
 recovering exactly the kernel $K(\tau-\tau')$ of
 Eq.~\eqref{eq:kernel_spectral} and the variance $C(\beta)$ of
 Eq.~\eqref{eq:Cbeta_def}. The entire influence-functional construction of
-Sec.~\ref{sec:influence_to_hmf}---including the closed-form
-mean-force Hamiltonian Eq.~\eqref{eq:HMF_commuting_final}---is therefore
+Sec.~\ref{sec:influence_to_hmf} - including the closed-form
+mean-force Hamiltonian Eq.~\eqref{eq:HMF_commuting_final} - is therefore
 the $n\leq 2$ truncation of the general cumulant expansion.
 
 
@@ -143,7 +143,6 @@ the corrected mean-force Hamiltonian becomes
     - \lambda\,f^2
     - \frac{\kappa_4(\beta)}{\beta}\,f^4
     + \cdots
-    + \mathrm{const}(\beta)\,\mathbf 1.
     \label{eq:HMF_non_gaussian}
 \end{equation}
 Crucially, while the Gaussian correction $-\lambda f^2$ is temperature
@@ -154,8 +153,6 @@ temperature dependence into the \emph{operator} content of the
 mean-force Hamiltonian, even in the commuting sector where time ordering
 is trivial. This marks a qualitative distinction from the purely
 Gaussian case.
-
-
 
 A particularly important class of non-Gaussian environments consists
 of baths of localised spins, which arise naturally in solid-state
@@ -176,17 +173,17 @@ $K(\tau-\tau')$, and the mean-force construction of
 Sec.~\ref{sec:influence_to_hmf} applies without modification.
 
 When the couplings instead remain $\mathcal O(1)$ as $N$
-grows---the generic situation for a physical spin bath---the central
+grows - the generic situation for a physical spin bath - the central
 limit theorem does not apply. Higher connected correlators scale as
 $\mathcal O(1)$ and contribute at leading order. In particular the
 four-point cumulant $K_4$ (and higher) do not vanish, and the Gaussian
 truncation introduces an uncontrolled
 error~\cite{ProkofevStamp2000,HsiehCao2018I,HsiehCao2018II}.
 Even in this regime, however, an effective Gaussian description can
-be recovered within linear response---that is, when the bath is only
+be recovered within linear response - that is, when the bath is only
 weakly perturbed from equilibrium. There the two-point correlator
-determines the full response via a fluctuation--dissipation relation,
-and higher cumulants enter only at higher orders in the system--bath
+determines the full response via a fluctuation - dissipation relation,
+and higher cumulants enter only at higher orders in the system - bath
 interaction
 strength~\cite{SuarezSilbey1991,Makri1999,YingEtAl2024}.
 Beyond linear response, the non-Gaussian character of the spin bath
@@ -215,7 +212,7 @@ framework of Sec.~\ref{sec:quenched} can absorb them. The essential
 observation is that each higher-order term in the effective
 action Eq.~\eqref{eq:Seff_cumulant} is multilocal in imaginary time and can
 be reduced to a local-in-$\tau$ operator picture by a nested
-Hubbard--Stratonovich transformation, at the price of promoting the
+Hubbard - Stratonovich transformation, at the price of promoting the
 covariance of the auxiliary field to a stochastic object.
 
 Consider the quartic correction $\Phi^{(4)}$. It is quadratic in the
@@ -229,7 +226,7 @@ zero-mean Gaussian random kernel $\delta K(\tau,\tau')$ with covariance
     \tfrac{1}{3}\,K_4(\tau_1,\tau_2,\tau_3,\tau_4).
     \label{eq:deltaK_covariance}
 \end{equation}
-The construction requires $K+\delta K$ to be positive semi-definite for the conditional Gaussian measure to be well defined. This holds perturbatively whenever the non-Gaussian correction is small, $\delta K\ll K$. For sub-Gaussian baths---including bounded spin baths where $K_4$ is typically negative---the identity survives via analytic continuation (where the auxiliary field $\delta K$ becomes complex), though the direct stochastic sampling interpretation is lost.
+The construction requires $K+\delta K$ to be positive semi-definite for the conditional Gaussian measure to be well defined. This holds perturbatively whenever the non-Gaussian correction is small, $\delta K\ll K$. For sub-Gaussian baths - including bounded spin baths where $K_4$ is typically negative - the identity survives via analytic continuation (where the auxiliary field $\delta K$ becomes complex), though the direct stochastic sampling interpretation is lost.
 Since the functional $Y:=\frac{1}{2}\!\iint \delta K\,f\,f$ is linear
 in the Gaussian field $\delta K$, it is itself Gaussian, with variance
 $\frac{1}{8}\!\iiiint\!\frac{1}{3}K_4\,f^4 = \Phi^{(4)}$.
@@ -255,7 +252,7 @@ Combining this with the Gaussian kernel gives
     \label{eq:combined_kernel}
 \end{align}
 The exponent on the right is again bilocal and can be linearised by a
-second, standard Hubbard--Stratonovich transformation: for each
+second, standard Hubbard - Stratonovich transformation: for each
 realisation of $\delta K$, introduce $\xi(\tau)$ drawn from a Gaussian
 with the stochastic covariance
 \begin{equation}
@@ -283,8 +280,8 @@ special case $\delta K=0$ identically, and the hierarchy terminates at
 a single level.
 
 Crucially, in the commuting sector $[H_Q,f]=0$, the inner
-Hubbard--Stratonovich average can be performed analytically---exactly as
-in Sec.~\ref{sec:influence_to_hmf}---for every realisation of
+Hubbard - Stratonovich average can be performed analytically - exactly as
+in Sec.~\ref{sec:influence_to_hmf} - for every realisation of
 $\delta K$. The result is
 $e^{-\beta H_Q}\,\exp\!\bigl[\frac{1}{2}(C+\delta C)\,f^2\bigr]$,
 where $\delta C:=\!\iint\!\delta K(\tau,\tau')\,d\tau\,d\tau'$ is a
@@ -314,8 +311,8 @@ $\xi$ conditioned on $\delta K$, and average the quenched propagators
 numerically. The construction requires $K+\delta K$ to be positive
 semi-definite for each realisation, which holds perturbatively whenever
 $\delta K\ll K$, i.e.\ when the fourth cumulant is small relative to
-$K^{\otimes 2}$. For sub-Gaussian baths---including bounded spin baths,
-where $K_4$ is typically negative---the HS identity remains valid as
+$K^{\otimes 2}$. For sub-Gaussian baths - including bounded spin baths,
+where $K_4$ is typically negative - the HS identity remains valid as
 an analytic continuation (the auxiliary field $\delta K$ becomes complex
 valued), but the direct stochastic sampling interpretation is lost.
 
@@ -325,5 +322,5 @@ cumulant series to a single kernel, while commutativity of $H_Q$ and
 $f$ collapses the time ordering. The commuting Gaussian case treated in
 Sec.~\ref{sec:influence_to_hmf} is the unique intersection where both
 simplifications hold simultaneously. When either is relaxed, the nested
-Hubbard--Stratonovich construction provides a systematic route back to
+Hubbard - Stratonovich construction provides a systematic route back to
 the local operator picture.

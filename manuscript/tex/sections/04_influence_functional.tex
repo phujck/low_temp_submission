@@ -18,7 +18,7 @@ Here $Z_X(\beta)=\Tr_X e^{-\beta H_X}$ is the free bath partition function, $S_Q
     \label{eq:kernel_spectral}
 \end{equation}
 
-While the representation \eqref{eq:reduced_effective_PI} is exact, it is nonlocal (bilocal) in imaginary time. This nonlocality can be resolved by a Hubbard--Stratonovich (HS) transformation \cite{hubbardCalculationPartitionFunctions1959a, stratonovich1957QDistro}, which decouples the bilocal interaction by introducing an auxiliary Gaussian field $\xi(\tau)$. This step provides the bridge to an operator-level representation of $\bar{\rho}_Q$ as a Gaussian average over the local quenched canonical densities discussed in Sec.~\ref{sec:quenched}:
+While the representation \eqref{eq:reduced_effective_PI} is exact, it is nonlocal (bilocal) in imaginary time. This nonlocality can be resolved by a Hubbard - Stratonovich (HS) transformation \cite{hubbardCalculationPartitionFunctions1959a, stratonovich1957QDistro}, which decouples the bilocal interaction by introducing an auxiliary Gaussian field $\xi(\tau)$. This step provides the bridge to an operator-level representation of $\bar{\rho}_Q$ as a Gaussian average over the local quenched canonical densities discussed in Sec.~\ref{sec:quenched}:
 \begin{equation}
 \begin{split}
     \bar\rho_Q(\beta) 
@@ -74,25 +74,20 @@ Therefore the Gaussian average $\mathbb E_\xi[e^{f X}] = \exp[\frac{1}{2}C(\beta
 The Hamiltonian of mean force follows by taking
 $-\frac{1}{\beta}\log\bar\rho_Q$:
 \begin{equation}
-    H_{\mathrm{MF}}(\beta) = H_Q -\lambda\,f^2 +\mathrm{const}(\beta)\,\mathbf 1,
+    H_{\mathrm{MF}}(\beta) = H_Q -\lambda\,f^2 
     \label{eq:HMF_commuting_final}
 \end{equation}
-where $\mathrm{const}(\beta)$ is a scalar that is fixed by the normalisation
-$\Tr\,e^{-\beta H_{\mathrm{MF}}}=1$ and therefore drops out of the
-normalised mean-force Gibbs state
-$\rho_{\mathrm{MF}}=e^{-\beta H_{\mathrm{MF}}}/\Tr\,e^{-\beta H_{\mathrm{MF}}}$.
-The only nontrivial operator content is the correction $-\lambda f^2$, which
+up to some temperature dependent constant that is fixed by the normalisation
+$\Tr\,e^{-\beta H_{\mathrm{MF}}}=1$. The only nontrivial operator content is then the correction $-\lambda f^2$, which
 is temperature independent.
 
 Note that $\lambda$ coincides with the static potential renormalisation
-$\frac{1}{2}\sum_k c_k^2/(m_k\omega_k^2)$ of the Caldeira--Leggett
+$\frac{1}{2}\sum_k c_k^2/(m_k\omega_k^2)$ of the Caldeira - Leggett
 model. If the standard counterterm $+\lambda f^2$ has been absorbed into
 $H_Q$ (as stated in Sec.~\ref{sec:model}), the bath-induced shift
-$-\lambda f^2$ cancels it exactly:
-$H_{\mathrm{MF}}$ reduces to the bare system Hamiltonian $H_Q^{\mathrm{bare}}$,
-and the normalised mean-force Gibbs state coincides with the bare-system
+$-\lambda f^2$ cancels it exactly. Then $H_{\mathrm{MF}}$ reduces to the bare system Hamiltonian $H_Q^{\mathrm{bare}}$, and the normalised mean-force Gibbs state coincides with the bare-system
 Gibbs state. In other words, in the commuting sector with the CL counterterm
 convention, the bath has no operator-level effect on the reduced equilibrium
-state---its only role is to shift the total free energy.
+state - its only role is to shift the total free energy.
 Conversely, if no counterterm is included, $-\lambda f^2$ represents a genuine
 bath-induced static renormalisation of the system potential.
