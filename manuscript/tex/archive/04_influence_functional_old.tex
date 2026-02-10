@@ -1,0 +1,158 @@
+\section{Euclidean influence functional and the reduced equilibrium path integral}
+\label{sec:influence}
+We now eliminate the harmonic bath exactly and express the reduced equilibrium
+operator as a Euclidean path integral over system trajectories with a bilocal
+self-interaction. This is the equilibrium (imaginary-time) analogue of the
+Feynman--Vernon influence functional for real-time dynamics
+\cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988}.
+
+\subsection{Reduced equilibrium kernel as a path integral}
+
+Consider the reduced equilibrium kernel in the $|q\rangle$ basis,
+\begin{equation}
+\begin{split}
+    \bar\rho_Q(q_f,q_i;\beta)
+    &:=
+    \langle q_f|\Tr_X e^{-\beta H_{\mathrm{tot}}}|q_i\rangle \\
+    &=
+    \int dx\, \langle q_f,x|e^{-\beta H_{\mathrm{tot}}}|q_i,x\rangle,
+\end{split}
+    \label{eq:reduced_kernel_again}
+\end{equation}
+where $\int dx\equiv \prod_k\int dx_k$ implements the partial trace in the bath
+position basis.
+
+A standard Trotter discretisation and insertion of resolutions of the identity
+in the joint $|q,x\rangle$ basis yields a Euclidean path-integral representation
+\begin{align}
+    \bar\rho_Q(q_f,q_i;\beta)
+    &=
+    \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q
+    \prod_k \int \mathcal D x_k\; \nonumber\\
+    &\quad \times
+    \exp\!\left[-S_Q[q] - \sum_k S_k[x_k;q]\right],
+    \label{eq:full_euclidean_PI}
+\end{align}
+where $S_Q[q]$ is the Euclidean action associated with $H_Q$ (as in
+Sec.~\ref{sec:quenched}), and
+\begin{equation}
+\begin{split}
+    S_k[x_k;q]
+    &=
+    \int_0^\beta d\tau\,
+    \bigg[
+        \frac{m_k}{2}\dot x_k(\tau)^2
+        +\frac{m_k\omega_k^2}{2}x_k(\tau)^2 \\
+        &\qquad\qquad+ c_k\, f\!\big(q(\tau)\big)\, x_k(\tau)
+    \bigg].
+\end{split}
+    \label{eq:bath_action}
+\end{equation}
+The bath paths are periodic in imaginary time (thermal trace). The system path
+satisfies the fixed endpoint conditions $q(0)=q_i$ and $q(\beta)=q_f$.
+
+\subsection{Exact elimination of the Gaussian bath}
+
+Each bath coordinate $x_k(\tau)$ appears quadratically in \eqref{eq:bath_action},
+so the functional integral over $x_k$ is Gaussian and can be performed exactly.
+For a single mode, completing the square yields
+\begin{equation}
+\begin{split}
+    \int \mathcal D x_k\; e^{-S_k[x_k;q]}
+    &=
+    Z_k(\beta)\,
+    \exp\Bigg[
+        \frac{c_k^2}{2}\int_0^\beta d\tau\int_0^\beta d\tau'\, \\
+    &\quad \times
+        f\!\big(q(\tau)\big)\,G_k(\tau-\tau')\,f\!\big(q(\tau')\big)
+    \Bigg],
+\end{split}
+    \label{eq:single_mode_integrated}
+\end{equation}
+where $Z_k(\beta)=\Tr\,e^{-\beta(\frac{p_k^2}{2m_k}+\frac{1}{2}m_k\omega_k^2 x_k^2)}$
+is the thermal partition function of mode $k$, and $G_k$ is the periodic Euclidean
+Green function of the oscillator,
+\begin{equation}
+\begin{split}
+    \left(-m_k\frac{d^2}{d\tau^2}+m_k\omega_k^2\right)G_k(\tau)
+    &=\delta_\beta(\tau),\\
+    G_k(\tau+\beta)&=G_k(\tau),
+\end{split}
+\end{equation}
+with $\delta_\beta$ the $\beta$-periodic delta function. An explicit form is
+\begin{equation}
+\begin{split}
+    G_k(\tau)
+    &=
+    \frac{1}{2m_k\omega_k \sinh\!\left(\frac{\beta\omega_k}{2}\right)} \\
+    &\quad \times
+    \cosh\!\left[\omega_k\left(\frac{\beta}{2}-|\tau|\right)\right],\\
+    &\qquad \tau\in[-\beta,\beta],
+\end{split}
+    \label{eq:euclidean_green_function}
+\end{equation}
+extended periodically.
+
+Multiplying the contributions of all modes gives
+\begin{equation}
+\begin{split}
+    \prod_k \int \mathcal D x_k\; e^{-S_k[x_k;q]}
+    &=
+    Z_X(\beta)\,
+    \exp\Bigg[
+        \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau'\, \\
+    &\quad \times
+        f\!\big(q(\tau)\big)\,K(\tau-\tau')\,f\!\big(q(\tau')\big)
+    \Bigg],
+\end{split}
+    \label{eq:all_modes_integrated}
+\end{equation}
+where $Z_X(\beta)=\prod_k Z_k(\beta)$ and the influence kernel is
+\begin{equation}
+    K(\tau)
+    :=
+    \sum_k c_k^2\,G_k(\tau)
+    =
+    \sum_k \frac{c_k^2}{2m_k\omega_k}\,
+    \frac{\cosh\!\left[\omega_k\left(\frac{\beta}{2}-|\tau|\right)\right]}
+         {\sinh\!\left(\frac{\beta\omega_k}{2}\right)}.
+    \label{eq:kernel_modesum}
+\end{equation}
+In terms of the spectral density \eqref{eq:spectral_density}, this may be written as
+\begin{equation}
+    K(\tau)
+    =
+    \frac{1}{\pi}\int_0^\infty d\omega\,
+    J(\omega)\,
+    \frac{\cosh\!\left[\omega\left(\frac{\beta}{2}-|\tau|\right)\right]}
+         {\sinh\!\left(\frac{\beta\omega}{2}\right)}.
+    \label{eq:kernel_spectral}
+\end{equation}
+
+Substituting \eqref{eq:all_modes_integrated} into \eqref{eq:full_euclidean_PI} yields the
+reduced equilibrium kernel in closed form:
+\begin{equation}
+\begin{split}
+    \bar\rho_Q(q_f,q_i;\beta)
+    &=
+    Z_X(\beta)\!
+    \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q\; \exp\Bigg[
+        -S_Q[q] \\
+        &\quad
+        +\frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau'\,
+        f\!\big(q(\tau)\big) \\
+        &\qquad\quad \times K(\tau-\tau')\,f\!\big(q(\tau')\big)
+    \Bigg].
+\end{split}
+    \label{eq:reduced_effective_PI}
+\end{equation}
+Equation \eqref{eq:reduced_effective_PI} is the Euclidean influence-functional representation
+of the reduced equilibrium operator: the bath has been eliminated exactly and its entire
+effect is encoded in the translation-invariant kernel $K(\tau-\tau')$ determined by $J(\omega)$.
+
+The representation \eqref{eq:reduced_effective_PI} is exact but bilocal in imaginary time.
+In the next section we rewrite the bilocal term by a Hubbard--Stratonovich transformation,
+introducing a quenched $\tau$-dependent generator whose imaginary-time path integral matches
+\eqref{eq:reduced_effective_PI} term-by-term. This produces an operator-level representation
+of $\bar\rho_Q(\beta)$ as an average over quenched canonical densities of the form derived in
+Sec.~\ref{sec:quenched}.
