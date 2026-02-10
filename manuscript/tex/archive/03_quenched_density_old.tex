@@ -1,0 +1,132 @@
+\section{Quenched representation of an imaginary-time propagator\label{sec:quenched}}
+
+The Hamiltonian of mean force is defined through a Euclidean object,
+$\bar\rho_Q(\beta)=\Tr_X e^{-\beta H_{\mathrm{tot}}}$, whose natural representation
+is an imaginary-time path integral~\cite{feynmanQuantumMechanicsPath1965, kleinertPathIntegralsQuantum2009}. While this representation makes exact treatment of the bath possible, it comes at a conceptual cost: the path
+integral trades operator structure for functional structure. In particular,
+questions about the \emph{operator algebra} underlying the reduced equilibrium
+state are obscured once the dynamics is expressed solely in terms of paths and
+kernels.
+
+If one wishes to understand when a local or otherwise restricted Hamiltonian of
+mean force can exist, it is therefore useful to reconnect the path-integral
+description to an operator-based notion of imaginary-time propagation. The key
+observation is that the reduced equilibrium operator may be regarded as an
+imaginary-time evolution over an interval of length $\beta$, but with a generator
+that need not be time independent. Allowing for explicit $\tau$-dependence in
+the generator provides a natural bridge between the nonlocal Euclidean influence
+functional and a time-ordered exponential acting on the system Hilbert space.
+
+Motivated by this, we introduce a class of imaginary-time propagators generated
+by a $\tau$-dependent Hamiltonian on the system alone. These propagators will be
+constructed for fixed external fields and only subsequently related to the
+microscopic model. We refer to this construction as \emph{quenched} to emphasise
+that the external field is held fixed during the imaginary-time evolution,
+rather than being averaged over inside the exponential. In this sense, the
+imaginary-time generator encodes an effective, path-dependent temperature
+profile whose statistics are imposed only after the operator has been defined.
+
+This quenched representation serves two purposes. First, it provides a
+well-defined operator object whose path-integral representation can be derived
+by standard means, allowing a precise comparison with the Euclidean influence
+functional. Second, it isolates the algebraic content of the problem: all
+nontrivial operator structure is carried by the imaginary-time–dependent
+generator, while nonlocality and temperature dependence enter only through the
+external field. In later sections we show how, for Gaussian environments, the
+microscopic bath generates a specific quenched ensemble of such propagators,
+and how the commuting case collapses this structure to a closed-form Hamiltonian
+of mean force.
+
+Let $H_Q$ be a system Hamiltonian and let $f$ be an arbitrary system operator.
+For a prescribed c-number field $\xi(\tau)$ on $\tau\in[0,\beta]$ we define the
+\emph{quenched} imaginary-time propagator
+\begin{equation}
+    \tilde\rho_Q(\beta;\xi)
+    :=
+    \mathcal T_\tau
+    \exp\!\left[
+        -\int_0^\beta d\tau\,
+        \big(H_Q+\xi(\tau)\,f\big)
+    \right].
+    \label{eq:quenched_operator_def}
+\end{equation}
+The term \emph{quenched} refers only to the status of $\xi(\tau)$ as an external
+field held fixed while constructing $\tilde\rho_Q(\beta;\xi)$.
+
+\subsection{Generic phase-space path integral}
+
+We derive a path-integral representation for the kernel
+\begin{equation}
+    \tilde\rho_Q(q_f,q_i;\beta|\xi)
+    := \langle q_f|\tilde\rho_Q(\beta;\xi)|q_i\rangle,
+\end{equation}
+without assuming that $f$ is diagonal in the $|q\rangle$ basis.
+
+Discretise $[0,\beta]$ into $N$ slices of width $\epsilon=\beta/N$, with
+$\tau_n=n\epsilon$ and $\xi_n:=\xi(\tau_n)$. Writing
+\begin{equation}
+    \tilde\rho_Q(\beta;\xi)
+    =
+    \lim_{N\to\infty}
+    \prod_{n=0}^{N-1}
+    \exp\!\left[-\epsilon\big(H_Q+\xi_n f\big)\right],
+\end{equation}
+insert $N-1$ resolutions of the identity $\mathbf 1=\int dq\,|q\rangle\langle q|$ to obtain
+\begin{equation}
+\begin{split}
+    \tilde\rho_Q(q_f,q_i;\beta|\xi)
+    &=
+    \lim_{N\to\infty}
+    \int \prod_{n=1}^{N-1} dq_n \\
+    &\quad \times \prod_{n=0}^{N-1}
+    \langle q_{n+1}|e^{-\epsilon(H_Q+\xi_n f)}|q_n\rangle,
+\end{split}
+    \label{eq:quenched_trotter_q}
+\end{equation}
+with $q_0=q_i$ and $q_N=q_f$.
+
+To obtain a generic expression for the short-time kernel, insert a momentum resolution
+$\mathbf 1=\int \frac{dp}{2\pi\hbar}\,|p\rangle\langle p|$ between $|q_n\rangle$ and
+$|q_{n+1}\rangle$, and use a mid-point (Weyl) prescription. For sufficiently small
+$\epsilon$ one has the operator identity
+\begin{equation}
+\begin{split}
+    \langle q'|e^{-\epsilon \hat A}|q\rangle
+    &=
+    \int\frac{dp}{2\pi\hbar}\,
+    \exp\!\left[\frac{i}{\hbar}p(q'-q)\right]
+    \\
+    &\quad\times
+    \exp\!\left[-\epsilon\,A_W\!\left(\frac{q'+q}{2},p\right)\right]
+    +\mathcal O(\epsilon^2),
+\end{split}
+    \label{eq:short_time_weyl}
+\end{equation}
+where $A_W(q,p)$ denotes the Weyl symbol of the operator $\hat A$, corresponding to the symmetric ordering of operators in the underlying quantum theory~\cite{schulmanTechniquesApplicationsPath1981, berezinMethodSecondQuantization1966}. The mid-point evaluation of the coordinate argument, $(q'+q)/2$, is crucial here; other discretization prescriptions lead to different operator orderings in the continuum limit (e.g., pre-point evaluation yields standard ordering)~\cite{groscheHandbookFeynmanPath1998, kleinertPathIntegralsQuantum2009}. While the choice of ordering is formally a matter of convention, the Weyl prescription is particularly convenient for preserving symplectic symmetries in phase space.
+
+\begin{widetext}
+Applying \eqref{eq:short_time_weyl} with $\hat A = H_Q+\xi_n f$ gives
+\begin{equation}
+    \langle q_{n+1}|e^{-\epsilon(H_Q+\xi_n f)}|q_n\rangle
+    = \int\frac{dp_n}{2\pi\hbar} \exp\!\left[\frac{i}{\hbar}p_n(q_{n+1}-q_n)\right] \exp\!\bigg[ -\epsilon \big(H_Q+\xi_n f\big)_W \left(\frac{q_{n+1}+q_n}{2},p_n\right) \bigg] +\mathcal O(\epsilon^2).
+    \label{eq:short_time_quenched}
+\end{equation}
+
+Substituting \eqref{eq:short_time_quenched} into \eqref{eq:quenched_trotter_q} yields the discrete phase-space path integral
+\begin{equation}
+    \tilde\rho_Q(q_f,q_i;\beta|\xi) = \lim_{N\to\infty} \int \prod_{n=1}^{N-1} dq_n \int \prod_{n=0}^{N-1}\frac{dp_n}{2\pi\hbar} \exp\!\Bigg[ \frac{i}{\hbar}\sum_{n=0}^{N-1} p_n(q_{n+1}-q_n) -\epsilon\sum_{n=0}^{N-1} \big(H_Q+\xi_n f\big)_W\!\left(\frac{q_{n+1}+q_n}{2},p_n\right) \Bigg],
+    \label{eq:quenched_discrete_phase_space}
+\end{equation}
+with fixed endpoints $q_0=q_i$, $q_N=q_f$. In the continuum limit this becomes
+\begin{equation}
+    \tilde\rho_Q(q_f,q_i;\beta|\xi) = \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q \int \mathcal D p \exp\!\left[ \frac{i}{\hbar}\int_0^\beta d\tau\, p(\tau)\,\dot q(\tau) -\int_0^\beta d\tau \big(H_Q+\xi(\tau) f\big)_W\!\big(q(\tau),p(\tau)\big) \right],
+    \label{eq:quenched_phase_space_PI}
+\end{equation}
+\end{widetext}
+where the subscript $W$ indicates the chosen operator-to-symbol map (here Weyl/mid-point).
+
+Equation \eqref{eq:quenched_phase_space_PI} is the generic path-integral representation
+of the quenched $\tau$-ordered propagator \eqref{eq:quenched_operator_def}. No assumption
+has been made about diagonal structure of $f$; all operator ordering information is
+carried by the fixed discretisation prescription defining the symbol
+$\big(H_Q+\xi(\tau)f\big)_W$.

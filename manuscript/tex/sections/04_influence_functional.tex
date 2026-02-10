@@ -8,11 +8,11 @@ We now eliminate the harmonic bath exactly and express the reduced equilibrium o
 Following the influence-functional formalism \cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988} and specifically its stochastic representation for Gaussian baths \cite{mccaulPartitionfreeApproachOpen2017c, mccaulDrivingSpinbosonModels2018a, mccaulHowWinFriends2021b}, the resulting reduced density matrix admits the imaginary-time path integral representation:
 \begin{widetext}
 \begin{equation}
-    \bar\rho_Q(q_f,q_i;\beta) = Z_B(\beta) \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q\; \exp\Bigg[ -S_Q[q] + \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau' f\big(q(\tau)\big) K(\tau-\tau') f\big(q(\tau')\big) \Bigg].
+    \bar\rho_Q(q_f,q_i;\beta) = Z_X(\beta) \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q\; \exp\Bigg[ -S_Q[q] + \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau' f\big(q(\tau)\big) K(\tau-\tau') f\big(q(\tau')\big) \Bigg].
     \label{eq:reduced_effective_PI}
 \end{equation}
 \end{widetext}
-Here $Z_B(\beta)$ is the free bath partition function, $S_Q$ is the Euclidean system action defined in Sec.~\ref{sec:quenched}, and $K(\tau)$ is the imaginary-time influence kernel. In terms of the bath spectral density $J(\omega)$, the kernel is given by
+Here $Z_X(\beta)=\Tr_X e^{-\beta H_X}$ is the free bath partition function, $S_Q$ is the Euclidean system action defined in Sec.~\ref{sec:quenched}, and $K(\tau)$ is the imaginary-time influence kernel. In terms of the bath spectral density $J(\omega)$, the kernel is given by
 \begin{equation}
     K(\tau) = \frac{1}{\pi}\int_0^\infty d\omega\, J(\omega) \frac{\cosh\!\left[\omega\left(\frac{\beta}{2}-|\tau|\right)\right]} {\sinh\!\left(\frac{\beta\omega}{2}\right)}.
     \label{eq:kernel_spectral}
@@ -23,7 +23,7 @@ While the representation \eqref{eq:reduced_effective_PI} is exact, it is nonloca
 \begin{split}
     \bar\rho_Q(\beta) 
     &= 
-    Z_B(\beta)\,\mathbb E_\xi\bigg[ \\
+    Z_X(\beta)\,\mathbb E_\xi\bigg[ \\
     &\quad \hat{\mathcal{T}}\exp\!\left(-\int_0^\beta d\tau\,\bar{H}(\tau;\xi)\right) \bigg],
 \end{split}
     \label{eq:bar_rho_as_quenched_average}
@@ -40,7 +40,7 @@ In this form, finding the $H_{\mathrm{MF}}(\beta)$ is reduced to performing the 
     [H_Q,f]=0,
     \label{eq:commuting_here}
 \end{equation}
-the generator $\bar{H}(\tau;\xi) = H_Q - \xi(\tau) f$ now commutes with itself at different imaginary times. The $\hat{\mathcal{T}}$ ordering becomes redundant and the expression factorises:
+the generator $\bar{H}(\tau;\xi) = H_Q - \xi(\tau) f$ (the sign is conventional; since $\xi$ is Gaussian with zero mean, $\xi\to-\xi$ leaves the average unchanged) now commutes with itself at different imaginary times. The $\hat{\mathcal{T}}$ ordering becomes redundant and the expression factorises:
 \begin{align}
     \hat{\mathcal{T}}\exp\!\left[-\int_0^\beta d\tau\,\bar{H}(\tau;\xi)\right]
     &=
@@ -52,18 +52,47 @@ where $X:=\int_0^\beta d\tau\,\xi(\tau)$ is a Gaussian variable with mean zero a
     C(\beta) = \mathbb E_\xi[X^2] = \int_0^\beta d\tau\int_0^\beta d\tau'\,K(\tau-\tau').
     \label{eq:Cbeta_def}
 \end{equation}
+Substituting the kernel \eqref{eq:kernel_spectral} and performing the double
+imaginary-time integral gives
+\begin{align}
+    C(\beta)
+    &=\frac{2\beta}{\pi}\int_0^\infty d\omega\,\frac{J(\omega)}{\omega}
+    \equiv 2\beta\,\lambda,
+    \nonumber\\
+    \lambda&:=\frac{1}{\pi}\int_0^\infty d\omega\,\frac{J(\omega)}{\omega},
+    \label{eq:Cbeta_explicit}
+\end{align}
+where $\lambda$ is the reorganisation energy.
+Crucially, $C(\beta)$ is \emph{linear} in $\beta$, so the ratio
+$C(\beta)/(2\beta)=\lambda$ is temperature independent.
+
 Therefore the Gaussian average $\mathbb E_\xi[e^{f X}] = \exp[\frac{1}{2}C(\beta)f^2]$ can be performed exactly, and hence, using \eqref{eq:bar_rho_as_quenched_average},
 \begin{equation}
-    \bar\rho_Q(\beta) = Z_B(\beta)\,e^{-\beta H_Q}\,\exp\!\left[\frac{1}{2}C(\beta)\,f^2\right].
+    \bar\rho_Q(\beta) = Z_X(\beta)\,e^{-\beta H_Q}\,\exp\!\left[\beta\lambda\,f^2\right].
     \label{eq:bar_rho_commuting_closed}
 \end{equation}
-Up to a $\beta$-dependent scalar fixed by the chosen normalisation, the Hamiltonian of mean force is therefore
+The Hamiltonian of mean force follows by taking
+$-\frac{1}{\beta}\log\bar\rho_Q$:
 \begin{equation}
-    H_{\mathrm{MF}}(\beta) = H_Q -\frac{C(\beta)}{2\beta}\,f^2 +\mathrm{const}(\beta)\,\mathbf 1.
+    H_{\mathrm{MF}}(\beta) = H_Q -\lambda\,f^2 +\mathrm{const}(\beta)\,\mathbf 1,
     \label{eq:HMF_commuting_final}
 \end{equation}
-This completes the exact construction of $H_{\mathrm{MF}}(\beta)$ in the commuting sector. This result matches the high-temperature limits found in existing literature but remains exact for all temperatures within the commuting sector. The function $C(\beta)$ is determined entirely by the bath kernel, equivalently by the spectral density via \eqref{eq:kernel_spectral}:
-\begin{equation}
-    C(\beta)=\int_0^\beta d\tau\int_0^\beta d\tau'\,K(\tau-\tau').
-    \label{eq:Cbeta_kernel_moments}
-\end{equation}
+where $\mathrm{const}(\beta)$ is a scalar that is fixed by the normalisation
+$\Tr\,e^{-\beta H_{\mathrm{MF}}}=1$ and therefore drops out of the
+normalised mean-force Gibbs state
+$\rho_{\mathrm{MF}}=e^{-\beta H_{\mathrm{MF}}}/\Tr\,e^{-\beta H_{\mathrm{MF}}}$.
+The only nontrivial operator content is the correction $-\lambda f^2$, which
+is temperature independent.
+
+Note that $\lambda$ coincides with the static potential renormalisation
+$\frac{1}{2}\sum_k c_k^2/(m_k\omega_k^2)$ of the Caldeira--Leggett
+model. If the standard counterterm $+\lambda f^2$ has been absorbed into
+$H_Q$ (as stated in Sec.~\ref{sec:model}), the bath-induced shift
+$-\lambda f^2$ cancels it exactly:
+$H_{\mathrm{MF}}$ reduces to the bare system Hamiltonian $H_Q^{\mathrm{bare}}$,
+and the normalised mean-force Gibbs state coincides with the bare-system
+Gibbs state. In other words, in the commuting sector with the CL counterterm
+convention, the bath has no operator-level effect on the reduced equilibrium
+state---its only role is to shift the total free energy.
+Conversely, if no counterterm is included, $-\lambda f^2$ represents a genuine
+bath-induced static renormalisation of the system potential.

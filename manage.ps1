@@ -18,10 +18,10 @@ elseif ($Command -eq "sim") {
 }
 elseif ($Command -eq "paper") {
     Push-Location manuscript/tex
-    pdflatex -output-directory ../build main.tex
-    bibtex ../build/main
-    pdflatex -output-directory ../build main.tex
-    pdflatex -output-directory ../build main.tex
+    pdflatex main.tex
+    bibtex main
+    pdflatex main.tex
+    pdflatex main.tex
     Pop-Location
 }
 elseif ($Command -eq "clean") {
