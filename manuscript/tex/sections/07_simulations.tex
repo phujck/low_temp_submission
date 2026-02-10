@@ -1,0 +1,32 @@
+\section{Numerical demonstrations}
+\label{sec:numerical}
+
+We include two minimal exact-diagonalization checks that illustrate the
+commuting result and the operator-algebra obstruction. These are not intended
+as high-precision numerical studies; they are small finite-bath sanity checks
+that reproduce the qualitative structure discussed above. The scripts are in
+\texttt{simulations/src/main.py} with a convenience runner in
+\texttt{simulations/run.ps1}. The default ``safe'' profile uses small truncations
+and single-threaded linear algebra to reduce resource usage.
+
+\paragraph{Commuting QND benchmark.}
+We take a four-level system with diagonal
+$H_Q=\mathrm{diag}(0,0.8,1.6,2.4)$ and $f=\mathrm{diag}(0,1,2,3)$, coupled to a
+finite set of harmonic bath modes. For each inverse temperature $\beta$ we
+compute $\rho_Q\propto\Tr_X e^{-\beta H_{\mathrm{tot}}}$ by exact
+matrix exponentiation and compare it with the commuting prediction
+$e^{-\beta H_Q}\exp[\tfrac12 C(\beta) f^2]$ where
+$C(\beta)=\beta\sum_k c_k^2/\omega_k^2$ (for $m_k=1$). The script reports the
+relative Frobenius error in \texttt{results/commuting\_check.csv}. Residual
+error is dominated by bath truncation and decreases with larger oscillator
+cutoffs.
+
+\paragraph{Noncommuting qubit check.}
+We take a qubit with $H_Q=0.6\,\sigma_z$ and
+coupling $f=\sigma_x+\eta\,\sigma_z$ (with $\eta=0.3$ in the default profile),
+again coupled to a single truncated oscillator. We compute
+$H_{\mathrm{MF}}(\beta)=-(1/\beta)\log\rho_Q$ and decompose it in the Pauli basis.
+For the commuting control $f=\sigma_z$ only the $\sigma_z$ component survives,
+whereas the noncommuting case produces a finite transverse component (reported
+in \texttt{results/qubit\_pauli\_coeffs.json}). This explicitly illustrates the
+operator growth induced by noncommutativity.

@@ -236,21 +236,22 @@ zero-mean Gaussian random kernel $\delta K(\tau,\tau')$ with covariance
     \tfrac{1}{3}\,K_4(\tau_1,\tau_2,\tau_3,\tau_4).
     \label{eq:deltaK_covariance}
 \end{equation}
+The construction requires $K+\delta K$ to be positive semi-definite for the conditional Gaussian measure to be well defined. This holds perturbatively whenever the non-Gaussian correction is small, $\delta K\ll K$. For sub-Gaussian baths---including bounded spin baths where $K_4$ is typically negative---the identity survives via analytic continuation (where the auxiliary field $\delta K$ becomes complex), though the direct stochastic sampling interpretation is lost.
 Since the functional $Y:=\frac{1}{2}\!\iint \delta K\,f\,f$ is linear
 in the Gaussian field $\delta K$, it is itself Gaussian, with variance
 $\frac{1}{8}\!\iiiint\!\frac{1}{3}K_4\,f^4 = \Phi^{(4)}$.
 Consequently
-\begin{equation}
+\begin{align}
     e^{\Phi^{(4)}}
-    =
+    &=
     \mathbb E_{\delta K}\!\left[
         \exp\!\left(
             \tfrac{1}{2}\!\iint\!\delta K(\tau,\tau')\,
-            f(q(\tau))\,f(q(\tau'))\,d\tau\,d\tau'
+            ff'\,d\tau\,d\tau'
         \right)
-    \right].
+    \right],
     \label{eq:quartic_HS}
-\end{equation}
+\end{align}
 Combining this with the Gaussian kernel gives
 \begin{align}
     e^{\frac{1}{2}\iint K\,ff\,+\,\Phi^{(4)}}
@@ -276,12 +277,7 @@ The reduced equilibrium operator then takes the nested stochastic form
     &=
     Z_X(\beta)\,
     \mathbb E_{\delta K}\!\left[
-        \mathbb E_{\xi|\delta K}\!\left[
-            \hat{\mathcal T}
-            \exp\!\left(
-                -\!\int_0^\beta\!d\tau\,\bar H(\tau;\xi)
-            \right)
-        \right]
+        \mathbb E_{\xi|\delta K}\!\left[ U_\xi(\beta) \right]
     \right],
     \label{eq:nested_quenched}
 \end{align}

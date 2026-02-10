@@ -1,6 +1,6 @@
 \section{Quenched representation of an imaginary-time propagator\label{sec:quenched}}
 
-The Hamiltonian of mean force is defined through a Euclidean object,
+The Hamiltonian of mean force is defined through an unnormalised Euclidean object,
 $\bar\rho_Q(\beta)=\Tr_X e^{-\beta H_{\mathrm{tot}}}$, whose natural representation
 is an imaginary-time path integral~\cite{feynmanQuantumMechanicsPath1965, kleinertPathIntegralsQuantum2009}. While this representation makes exact treatment of the bath possible, it comes at a conceptual cost: the path
 integral trades operator structure for functional structure. In particular,
@@ -38,16 +38,19 @@ and how the commuting case collapses this structure to a closed-form Hamiltonian
 of mean force.
 
 For a $\tau$-dependent Hamiltonian $\bar H(\tau)$ acting on the system Hilbert
-space, we define the \emph{quenched} imaginary-time propagator and its
-normalisation by
+space, we define the \emph{quenched} imaginary-time propagator $U(\beta)$ and its
+normalised counterpart $\rho_{\bar H}(\beta)$ by
 \begin{equation}
 \begin{split}
-    \bar\rho(\beta)
+    U(\beta)
     &:=
-    \frac{1}{Z_\beta}\,
     \hat\tau \exp\!\left[-\int_{0}^{\beta} d\tau\,\bar H(\tau)\right],
     \\
-    Z_\beta&:=\Tr\,\hat\tau \exp\!\left[-\int_{0}^{\beta} d\tau\,\bar H(\tau)\right],
+    \rho_{\bar H}(\beta)
+    &:=
+    \frac{1}{Z_{\bar H}}\, U(\beta),
+    \\
+    Z_{\bar H}&:=\Tr\, U(\beta),
 \end{split}
     \label{eq:quenched_canonical_def}
 \end{equation}
@@ -55,7 +58,8 @@ where $\hat\tau$ orders increasing imaginary times (inverse temperatures) to the
 The term \emph{quenched} refers to the fact that the $\tau$-dependence is treated as fixed
 during the construction of the propagator; any later interpretation of $\bar H(\tau)$ as
 induced by an external field is imposed only after \eqref{eq:quenched_canonical_def}
-has been defined.
+has been defined. Note that it is the unnormalised object $U(\beta)$ that enters the
+composite equilibrium trace in the following section.
 
 \subsection{Configuration-space path integral}
 
@@ -152,9 +156,9 @@ Substituting \eqref{eq:kinetic_short_time} and \eqref{eq:short_time_kernel_split
 In the limit $N\to\infty$ (i.e.\ $\Delta\to 0$), \eqref{eq:quenched_discrete_PI} becomes the
 Euclidean path integral~\cite{feynmanQuantumMechanicsPath1965,kleinertPathIntegralsQuantum2009,groscheHandbookFeynmanPath1998}
 \begin{equation}
-    \bar\rho(q_f,q_i;\beta)
+    \rho_{\bar H}(q_f,q_i;\beta)
     =
-    \frac{1}{Z_\beta}
+    \frac{1}{Z_{\bar H}}
     \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q(\tau)\;
     \exp\!\left[
         -\int_0^\beta d\tau\,
