@@ -10,17 +10,17 @@ and that the resulting time-ordered exponential collapsed to an ordinary
 exponential.
 
 Two logically independent obstructions can prevent such a collapse in
-general: (i)~noncommutativity of $H_Q$ and $f$, which forces
-nontrivial time ordering, and (ii)~non-Gaussian bath statistics, which
+general: The noncommutativity of $H_Q$ and $f$, which forces
+nontrivial time ordering, and non-Gaussian bath statistics, which
 generate higher-order connected correlators beyond the two-point kernel
-$K(\tau-\tau')$. The previous section addressed obstruction~(i). Here
-we address obstruction~(ii), showing how it enters the formalism through
+$K(\tau-\tau')$. The previous section addressed the first obstruction. Here
+we address the second, showing how it enters the formalism through
 an ordered-cumulant expansion and identifying when it can be neglected.
 
 
 Consider the bath trace that generates the influence functional. For a
 general bath---not necessarily harmonic---the coupling operator
-$B:=\sum_k c_k x_k$ from \eqref{eq:HI_model} need not produce Gaussian
+$B:=\sum_k c_k x_k$ from Eq.~\eqref{eq:HI_model} need not produce Gaussian
 statistics. The averaged time-ordered exponential admits a formal
 cumulant expansion~\cite{Kubo1962,Kubo1963}
 \begin{widetext}
@@ -58,7 +58,7 @@ ordering subtleties~\cite{Tanimura2006}.
 For a harmonic bath with linear coupling, the collective variable
 $B(\tau)$ is a Gaussian process: all connected correlators of order
 $n\geq 3$ vanish identically. The cumulant
-series~\eqref{eq:ordered_cumulant} therefore terminates at $n=2$:
+series Eq.~\eqref{eq:ordered_cumulant} therefore terminates at $n=2$:
 \begin{equation}
     \left\langle
         \hat{\mathcal T}\,e^{\int_0^\beta d\tau\,B(\tau)\,f}
@@ -71,10 +71,10 @@ series~\eqref{eq:ordered_cumulant} therefore terminates at $n=2$:
     \label{eq:gaussian_truncation}
 \end{equation}
 recovering exactly the kernel $K(\tau-\tau')$ of
-\eqref{eq:kernel_spectral} and the variance $C(\beta)$ of
-\eqref{eq:Cbeta_def}. The entire influence-functional construction of
+Eq.~\eqref{eq:kernel_spectral} and the variance $C(\beta)$ of
+Eq.~\eqref{eq:Cbeta_def}. The entire influence-functional construction of
 Sec.~\ref{sec:influence_to_hmf}---including the closed-form
-mean-force Hamiltonian \eqref{eq:HMF_commuting_final}---is therefore
+mean-force Hamiltonian Eq.~\eqref{eq:HMF_commuting_final}---is therefore
 the $n\leq 2$ truncation of the general cumulant expansion.
 
 
@@ -193,19 +193,19 @@ Beyond linear response, the non-Gaussian character of the spin bath
 reasserts itself and must be treated
 explicitly~\cite{HsiehCao2018II,HalataeiEtAl2025}.
 
-The cumulant expansion~\eqref{eq:ordered_cumulant} therefore provides
+The cumulant expansion Eq.~\eqref{eq:ordered_cumulant} therefore provides
 a unified framework in which these distinctions become systematic. For
 a given bath, the programme is straightforward: compute or bound the
 connected correlators
 $\langle\!\langle B(\tau_1)\cdots B(\tau_n)\rangle\!\rangle_X$. If
 all $n\geq 3$ cumulants are negligible, the Gaussian construction of
 Sec.~\ref{sec:influence_to_hmf} applies directly and the mean-force
-Hamiltonian is given by \eqref{eq:HMF_commuting_final}. Otherwise,
+Hamiltonian is given by Eq.~\eqref{eq:HMF_commuting_final}. Otherwise,
 $\Phi^{(4)}$ and, if needed, higher terms enter as perturbative
-corrections to the effective action~\eqref{eq:Seff_cumulant}. In the
+corrections to the effective action Eq.~\eqref{eq:Seff_cumulant}. In the
 commuting sector these produce the additional operator corrections
 $f^4, f^6,\ldots$ appearing in
-\eqref{eq:HMF_non_gaussian}, each with a coefficient that is
+Eq.~\eqref{eq:HMF_non_gaussian}, each with a coefficient that is
 determined entirely by the connected bath correlator of the
 corresponding order.
 
@@ -213,7 +213,7 @@ corresponding order.
 The cumulant expansion identifies the corrections; the quenched
 framework of Sec.~\ref{sec:quenched} can absorb them. The essential
 observation is that each higher-order term in the effective
-action~\eqref{eq:Seff_cumulant} is multilocal in imaginary time and can
+action Eq.~\eqref{eq:Seff_cumulant} is multilocal in imaginary time and can
 be reduced to a local-in-$\tau$ operator picture by a nested
 Hubbard--Stratonovich transformation, at the price of promoting the
 covariance of the auxiliary field to a stochastic object.
@@ -275,7 +275,7 @@ The reduced equilibrium operator then takes the nested stochastic form
     \label{eq:nested_quenched}
 \end{align}
 where $\bar H(\tau;\xi)=H_Q-\xi(\tau)f$ exactly as in
-\eqref{eq:bar_rho_as_quenched_average}. The inner average is the
+Eq.~\eqref{eq:bar_rho_as_quenched_average}. The inner average is the
 familiar quenched construction of Sec.~\ref{sec:quenched}; the outer
 average over the kernel fluctuation $\delta K$ captures the
 non-Gaussian bath statistics. A Gaussian bath corresponds to the
@@ -300,7 +300,7 @@ also Gaussian and evaluates in closed form:
     \exp\!\left[\kappa_4(\beta)\,f^4\right],
     \label{eq:nested_commuting_check}
 \end{align}
-reproducing~\eqref{eq:HMF_non_gaussian} exactly. Both levels of the
+reproducing Eq.~\eqref{eq:HMF_non_gaussian} exactly. Both levels of the
 hierarchy are evaluated analytically; no stochastic sampling is
 required. The same pattern extends to higher cumulants: each
 $\kappa_{2n}$ correction to the mean-force Hamiltonian can be obtained
@@ -308,7 +308,7 @@ by introducing one additional layer of Gaussian kernel fluctuation and
 performing the resulting average in closed form.
 
 For non-commuting couplings, the inner average can no longer be done
-analytically, but the nested representation~\eqref{eq:nested_quenched}
+analytically, but the nested representation Eq.~\eqref{eq:nested_quenched}
 still provides a constructive framework: sample $\delta K$, then sample
 $\xi$ conditioned on $\delta K$, and average the quenched propagators
 numerically. The construction requires $K+\delta K$ to be positive
