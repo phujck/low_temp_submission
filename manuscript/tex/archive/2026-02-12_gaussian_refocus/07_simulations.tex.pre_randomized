@@ -9,20 +9,15 @@ Hamiltonian parameters.
 
 We use a five-level system with
 \begin{equation}
-H_S=\sum_{i=0}^{4}E_i\lvert i\rangle\!\langle i\rvert,\qquad E_0=0,
+H_S=\mathrm{diag}(0.0,\,0.35,\,0.85,\,1.45,\,2.30),\qquad
+P=\lvert 4\rangle\!\langle 4\rvert,\qquad P^2=P,
 \end{equation}
-and projector coupling operator
+coupled linearly to a bosonic bath,
 \begin{equation}
-P=\lvert 4\rangle\!\langle 4\rvert,\qquad P^2=P.
-\end{equation}
-The nonzero energies are sampled once from a seeded random draw and then held
-fixed for the full parameter sweep (exact values and seed are listed in
-Appendix~\ref{app:numerics_implementation}). The bosonic bath and coupling are
-\begin{align}
-H_B &= \sum_k\omega_k\!\left(a_k^\dagger a_k+\tfrac12\right),\\
-H_I &= P\otimes\sum_k c_k x_k,\qquad
+H_B=\sum_k\omega_k\!\left(a_k^\dagger a_k+\tfrac12\right),\qquad
+H_I=P\otimes\sum_k c_k x_k,\qquad
 x_k=\frac{a_k+a_k^\dagger}{\sqrt{2\omega_k}}.
-\end{align}
+\end{equation}
 No counterterm is included, so the renormalization is explicitly visible in
 the reduced state. The exact benchmark at each parameter point is
 \begin{equation}
@@ -39,8 +34,6 @@ The continuum target spectrum is Ohmic with exponential cutoff,
 J_g(\omega)=2\eta g^2\,\omega\,e^{-\omega/\omega_c},
 \end{equation}
 and is discretized into a finite mode set used in ED and in stochastic sampling.
-Implementation details of the mode discretization and random-seed conventions
-are given in Appendix~\ref{app:numerics_implementation}.
 The discretized and continuum renormalization scales are
 \begin{equation}
 \lambda_{\mathrm{disc}}
@@ -77,8 +70,6 @@ $X\approx\Delta\tau\sum_j\xi(\tau_j)$,
 \item HS-scalar estimate: sample $X\sim\mathcal N(0,C_\beta)$ directly with
 $C_\beta=2\beta\lambda_{\mathrm{disc}}$.
 \end{enumerate}
-All reported states are explicitly renormalized to unit trace before extracting
-observables.
 
 \paragraph*{Plotted observables.}
 Panel (A) plots $p_4(\beta)=\langle 4|\rho_S|4\rangle$ for all four methods.
@@ -91,24 +82,22 @@ E_4-E_0+\frac{1}{\beta}\log\!\left(\frac{p_4}{p_0}\right),
 \end{equation}
 as $\lambda_{\mathrm{est}}/g^2$ vs $\beta$, together with
 $\lambda_{\mathrm{disc}}/g^2$ and $\lambda_{\mathrm{cont}}/g^2$.
-Panel (C) shows the individual populations $p_i$ at a representative
-$(\beta,g)$ point for bare Gibbs, analytic HMF, and ED.
-Panel (D) resolves the level-wise effective shift extracted from populations,
+Panel (C) plots the gauge-fixed mean-force diagnostic
 \begin{equation}
-\Delta_i
+H_{\mathrm{MF}}^{(0)}
 =
-E_i-E_0+\frac{1}{\beta}\log\!\left(\frac{p_i}{p_0}\right).
-\label{eq:delta_i_est}
+H_{\mathrm{MF}}-\frac{\Tr(H_{\mathrm{MF}})}{d}\mathbf 1,
+\qquad
+\langle H_{\mathrm{MF}}^{(0)}\rangle=\Tr[\rho_S H_{\mathrm{MF}}^{(0)}].
+\label{eq:gauge_fixed_hmf}
 \end{equation}
-For the projector-coupled model, the prediction is $\Delta_i=0$ for $i\neq 4$
-and $\Delta_4=\lambda$.
 
 \paragraph*{Physical claim tested.}
 Agreement in panel (A) validates that ED trace-out, analytic commuting HMF, and
 both stochastic implementations produce the same equilibrium populations.
 Panel (B) tests the nontrivial scaling claim: the bath effect is a pure $g^2$
-projector renormalization. Panels (C)-(D) show that the operator-level change is
-localized to the coupled projector sector, while agreement with ED is maintained.
+projector renormalization. Panel (C) checks consistency of the extracted
+mean-force operator beyond population-level agreement.
 
 \begin{figure*}[t]
     \centering
@@ -119,10 +108,8 @@ localized to the coupled projector sector, while agreement with ED is maintained
     for multiple couplings $g$.
     (B) $\lambda_{\mathrm{est}}/g^2$ vs $\beta$ with
     $\lambda_{\mathrm{disc}}/g^2$ and $\lambda_{\mathrm{cont}}/g^2$ references.
-    (C) Individual populations $p_i$ for bare Gibbs, analytic HMF, and ED at a
-    representative $(\beta,g)$.
-    (D) Level-resolved shifts $\Delta_i$ extracted from populations, showing that
-    only the coupled level acquires the renormalization shift.}
+    (C) Gauge-fixed mean-force expectation
+    $\langle H_{\mathrm{MF}}^{(0)}\rangle$ from ED-extracted and analytic HMF.}
 \end{figure*}
 
 \subsection{LT-CG-2: strong-coupling projector dominance}
@@ -155,6 +142,8 @@ interaction term predicted by Eq.~\eqref{eq:hmf_projector_form}.
 \end{figure}
 
 Machine-readable metrics for both tests are stored in
-the low-temperature simulation claim-metrics JSON output.
-Full parameter tables and execution details are provided in the accompanying
-simulation documentation and Appendix~\ref{app:numerics_implementation}.
+\texttt{simulations/results/claim\_metrics\_low\_temp.json}.
+Full parameter tables and execution details are provided in
+\texttt{simulations/docs/LT-CG-1.md},
+\texttt{simulations/docs/LT-CG-2.md}, and
+\texttt{simulations/AGENT\_GUIDE.md}.

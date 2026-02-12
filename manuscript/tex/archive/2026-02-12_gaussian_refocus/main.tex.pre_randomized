@@ -28,8 +28,6 @@ The Hamiltonian of mean force (HMF) provides the standard starting point for str
 \input{sections/05_beyond_gaussian}
 \input{sections/07_simulations}
 \input{sections/06_discussion}
-\appendix
-\input{sections/08_numerical_implementation}
 
 \bibliography{../../literature/references_new}
 

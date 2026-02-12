@@ -14,7 +14,9 @@ if ($Command -eq "install") {
     & $PythonStr -m pip install -r requirements.txt
 }
 elseif ($Command -eq "sim") {
-    & $PythonStr simulations/src/main.py
+    & $PythonStr simulations/src/run_low_temp_suite.py --regime all --profile full --seed 42
+    & $PythonStr simulations/src/plot_low_temp_suite.py
+    & $PythonStr simulations/src/validate_low_temp_claims.py
 }
 elseif ($Command -eq "paper") {
     Push-Location manuscript/tex

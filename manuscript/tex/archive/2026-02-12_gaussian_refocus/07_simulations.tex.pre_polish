@@ -15,14 +15,14 @@ and projector coupling operator
 \begin{equation}
 P=\lvert 4\rangle\!\langle 4\rvert,\qquad P^2=P.
 \end{equation}
-The nonzero energies are sampled once from a seeded random draw and then held
-fixed for the full parameter sweep (exact values and seed are listed in
-Appendix~\ref{app:numerics_implementation}). The bosonic bath and coupling are
-\begin{align}
-H_B &= \sum_k\omega_k\!\left(a_k^\dagger a_k+\tfrac12\right),\\
-H_I &= P\otimes\sum_k c_k x_k,\qquad
+where the nonzero energies are sampled once from a seeded random draw and then
+held fixed for the full parameter sweep (exact values and seed are listed in
+Appendix~\ref{app:numerics_implementation}). The coupling to the bosonic bath is
+\begin{equation}
+H_B=\sum_k\omega_k\!\left(a_k^\dagger a_k+\tfrac12\right),\qquad
+H_I=P\otimes\sum_k c_k x_k,\qquad
 x_k=\frac{a_k+a_k^\dagger}{\sqrt{2\omega_k}}.
-\end{align}
+\end{equation}
 No counterterm is included, so the renormalization is explicitly visible in
 the reduced state. The exact benchmark at each parameter point is
 \begin{equation}
@@ -155,6 +155,9 @@ interaction term predicted by Eq.~\eqref{eq:hmf_projector_form}.
 \end{figure}
 
 Machine-readable metrics for both tests are stored in
-the low-temperature simulation claim-metrics JSON output.
-Full parameter tables and execution details are provided in the accompanying
-simulation documentation and Appendix~\ref{app:numerics_implementation}.
+\texttt{simulations/results/claim\_metrics\_low\_temp.json}.
+Full parameter tables and execution details are provided in
+\texttt{simulations/docs/LT-CG-1.md},
+\texttt{simulations/docs/LT-CG-2.md}, and
+\texttt{simulations/AGENT\_GUIDE.md}; see also
+Appendix~\ref{app:numerics_implementation}.

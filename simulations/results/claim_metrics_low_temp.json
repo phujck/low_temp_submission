@@ -1,0 +1,26 @@
+{
+  "trace_distance": 6.303486788095114e-09,
+  "fro_error": 7.0840175410461054e-09,
+  "hmf_basis_residual": 2.1772481439422783e-15,
+  "collapse_max_deviation": 4.237238665494303e-08,
+  "slope_fit": {
+    "lambda_est_vs_g2": {
+      "slope": 0.3047113167002869,
+      "intercept": 2.8061331075863714e-08,
+      "r2": 0.9999999999999986
+    },
+    "aP_vs_g2": {
+      "slope": -0.3047113167002877,
+      "intercept": -2.8061327806817832e-08,
+      "r2": 0.9999999999999986
+    }
+  },
+  "improvement_ratio": 0.9525189078206802,
+  "trace_distance_path": 0.0008939506009678685,
+  "trace_distance_scalar": 0.0013740738817460962,
+  "projector_coeff_max_abs_err": 1.2132996340952218e-07,
+  "normalization_max_deviation": 2.220446049250313e-16,
+  "uncoupled_shift_max": 5.162537064506978e-15,
+  "coupled_shift_err": 0.0,
+  "pass_fail": true
+}

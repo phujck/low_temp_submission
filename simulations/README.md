@@ -1,26 +1,24 @@
 # Simulations
 
-This folder contains small exact-diagonalization checks supporting the manuscript claims.
+This folder contains manuscript-facing numerical validation for the Gaussian commuting low-temperature paper.
 
-## Quick run (safe defaults)
-
-```powershell
-./run.ps1
-```
-
-## Full run (larger truncation)
+## Run
 
 ```powershell
-./run.ps1 -Profile full -MaxThreads 2
+./run.ps1 -Profile full -Regime all -Seed 42
 ```
 
-## Outputs
+## Core outputs
 
-- `results/commuting_check.csv`
-- `results/qubit_pauli_coeffs.json`
+- `results/data/cg_lt_cg_1.csv`
+- `results/data/cg_lt_cg_2.csv`
+- `results/figures/lt_cg_1.pdf`
+- `results/figures/lt_cg_2.pdf`
+- `results/claim_metrics_low_temp.json`
+- `results/manifest.json`
 
-## Safety notes
+## Scope
 
-The runner sets BLAS/OpenMP thread counts to `MaxThreads` before Python starts.
-The default `safe` profile uses smaller bath truncations to limit CPU/RAM use.
-If your system is unstable, keep `MaxThreads` at 1 and run outside VS Code.
+- Implemented in this repo version:
+  - Commuting Gaussian tests only (`LT-CG-1`, `LT-CG-2`).
+- Non-Gaussian and non-commuting extensions are deferred to a follow-up paper.

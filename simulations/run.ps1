@@ -1,7 +1,10 @@
 param(
-    [ValidateSet('safe','full')]
-    [string]$Profile = 'safe',
-    [int]$MaxThreads = 1
+    [ValidateSet('quick','full','publish')]
+    [string]$Profile = 'quick',
+    [ValidateSet('cg','all')]
+    [string]$Regime = 'all',
+    [int]$MaxThreads = 1,
+    [int]$Seed = 42
 )
 
 $env:OMP_NUM_THREADS = $MaxThreads
@@ -11,8 +14,12 @@ $env:NUMEXPR_NUM_THREADS = $MaxThreads
 $env:VECLIB_MAXIMUM_THREADS = $MaxThreads
 $env:BLIS_NUM_THREADS = $MaxThreads
 
-$script = Join-Path $PSScriptRoot 'src\main.py'
+$runScript = Join-Path $PSScriptRoot 'src\run_low_temp_suite.py'
+$plotScript = Join-Path $PSScriptRoot 'src\plot_low_temp_suite.py'
+$validateScript = Join-Path $PSScriptRoot 'src\validate_low_temp_claims.py'
 $outDir = Join-Path $PSScriptRoot 'results'
 
-Write-Host "Running simulations (profile=$Profile, maxThreads=$MaxThreads)";
-py -3 $script --profile $Profile --max-threads $MaxThreads --out-dir $outDir
+Write-Host "Running low_temp suite (profile=$Profile, regime=$Regime, seed=$Seed, maxThreads=$MaxThreads)";
+py -3 $runScript --profile $Profile --regime $Regime --seed $Seed --n-workers $MaxThreads --outdir $outDir
+py -3 $plotScript --outdir $outDir
+py -3 $validateScript --outdir $outDir
