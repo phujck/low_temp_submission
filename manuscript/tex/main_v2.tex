@@ -1,0 +1,35 @@
+\documentclass[aps,prl,twocolumn,superscriptaddress,showpacs,floatfix]{revtex4-2}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\newcommand{\Tr}{\mathrm{Tr}}
+\setcounter{secnumdepth}{3}
+
+\begin{document}
+
+\title{Mean-Force Hamiltonians from Influence Functionals}
+\author{Gerard McCaul}
+% \affiliation{Affiliation}
+\date{\today}
+
+\begin{abstract}
+The Hamiltonian of mean force (HMF) provides the standard starting point for strong-coupling thermodynamics, yet explicit operator forms are known only in restricted settings. We present a "Quenched Density" framework that uses the Hubbard--Stratonovich transformation to rewrite the reduced equilibrium state as an average over quenched, system-local imaginary-time propagators. This approach rigorously separates the statistical definition of the environment from the algebraic structure of the system response. We apply this framework to the commuting Gaussian sector, where it reproduces the known reorganization-energy shift as an exact, closed-form benchmark. We validate this result against finite-bath trace-out calculations and stochastic imaginary-time sampling in a five-level projector-coupled model, establishing a numerical standard for strong-coupling approximations. This formulation provides the controlled Gaussian baseline for extending mean-force thermodynamics to non-Gaussian and non-commuting environments.
+\end{abstract}
+
+\maketitle
+
+\input{sections/01_introduction_v4}
+\input{sections/02_model_v2}
+\input{sections/03_quenched_density_v2}
+\input{sections/04_influence_functional_v2}
+% \input{sections/05_beyond_gaussian_v2} % Removed as redundant
+\input{sections/07_simulations_v2}
+\input{sections/06_discussion_v2}
+
+
+\bibliography{../../literature/references_new}
+
+\end{document}
