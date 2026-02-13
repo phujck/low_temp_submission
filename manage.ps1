@@ -20,14 +20,33 @@ elseif ($Command -eq "sim") {
 }
 elseif ($Command -eq "paper") {
     Push-Location manuscript/tex
-    pdflatex main.tex
-    bibtex main
-    pdflatex main.tex
-    pdflatex main.tex
+    
+    # Extract title from main_v2.tex
+    $titleLine = Get-Content main_v2.tex | Select-String -Pattern '\\title\{(.*)\}'
+    if ($titleLine) {
+        $title = $titleLine.Matches.Groups[1].Value
+        # Sanitize title for filename
+        $cleanTitle = $title -replace '[\\/:*?"<>|]', '' -replace '\s+', ' '
+    } else {
+        $cleanTitle = "main_v2"
+    }
+
+    pdflatex main_v2.tex
+    bibtex main_v2
+    pdflatex main_v2.tex
+    pdflatex main_v2.tex
+    if (Test-Path "main_v2.pdf") {
+        if (Test-Path "../$cleanTitle.pdf") {
+            Remove-Item "../$cleanTitle.pdf" -Force
+        }
+        Move-Item -Path "main_v2.pdf" -Destination "../$cleanTitle.pdf" -Force
+    }
+    
     Pop-Location
 }
 elseif ($Command -eq "clean") {
     Remove-Item -Recurse -Force manuscript/build/*
+    Remove-Item -Path "manuscript/tex/*.aux", "manuscript/tex/*.bbl", "manuscript/tex/*.blg", "manuscript/tex/*.log", "manuscript/tex/*.out", "manuscript/tex/*.toc" -ErrorAction SilentlyContinue
 }
 else {
     Write-Host "Usage: ./manage.ps1 [install|sim|paper|clean]"

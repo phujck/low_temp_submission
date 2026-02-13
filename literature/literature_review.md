@@ -97,6 +97,16 @@ If $\{f, \mathrm{ad}_{H_Q}(f), \mathrm{ad}_{H_Q}^2(f), \dots\}$ generates operat
     *Spatial structure of HMF.* Directly relevant to "locality" discussions in extended systems.
 -   **binder2018ThermodynamicsQuantumRegime**
     *Thermodynamics in the Quantum Regime (Book).* Key collection edited by Anders et al. covering fundamental aspects.
+-   **nazirReactionCoordinateMapping2018**
+    *Reaction Coordinate Mapping.* Nazir and Schaller's review of the RC method for strong coupling thermodynamics, bridging the gap between system and bath.
+-   **strasbergReactionCoordinate2016**
+    *Nonequilibrium thermodynamics with RC.* Application of reaction coordinate mapping to non-Markovian regimes.
+-   **hovhannisyanHamiltonianMeanForce2020**
+    *HMF for Strongly-Coupled Systems.* Anders et al. demonstrate the utility of HMF for extending thermodynamics to strong coupling in quantum and classical systems.
+-   **cresserWeakUltrastrongCoupling2021a**
+    *Weak and Ultrastrong Coupling Limits.* Cresser and Anders derive general expressions for the mean force Gibbs state, investigating coherences in the strong coupling regime.
+-   **rivasStrongCouplingThermodynamics2020**
+    *Strong Coupling Thermodynamics.* Rivas provides a rigorous framework for open quantum systems at strong coupling.
 
 
 ### Operator Algebra & Closure (Magnus/BCH)
@@ -125,3 +135,22 @@ If $\{f, \mathrm{ad}_{H_Q}(f), \mathrm{ad}_{H_Q}^2(f), \dots\}$ generates operat
     *Taming quantum noise for efficient low temperature simulations.* Efficient simulation techniques involving stochastic unravellings.
 -   **stockburger2016ExactPropagation**
     *Exact propagation of open quantum systems.* Summary of efficient stochastic propagation methods.
+-   **ankerholdJosephsonPhotonics2019**
+    *Quantum Thermodynamics with Josephson-Photonics.* Ankerhold's exploration of nanoscale quantum refrigerators in strong coupling setups.
+-   **wiedmannNonMarkovianOtto2021**
+    *Non-Markovian Quantum Otto Refrigerator.* Analysis of quantum refrigerator performance with non-Markovian dynamics.
+-   **andersSpinDynamics2022**
+    *Versatile Spin Dynamics.* Anders et al. derive a general spin dynamics equation guaranteeing the fluctuation-dissipation link.
+
+### Operational Thermodynamics & Strong Coupling (Binder & Gould)
+
+-   **binderOperationalThermodynamics2019**
+    *Operational Thermodynamics.* Binder et al. develop a framework for open system thermodynamics based on CPTP maps and operational first/second laws.
+-   **gooldRoleQuantumInformation2016**
+    *Quantum Information in Thermodynamics.* A comprehensive topical review by Goold et al. bridging quantum information theory and thermodynamics, covering resource theories and entanglement.
+-   **gooldStrongCouplingFastDriving2020**
+    *Fast Driving & Strong Coupling.* Goold and collaborators use the "mesoscopic leads approach" to tackle the difficult regime of fast driving in strongly coupled systems.
+-   **binderThermodynamicsQuantumRegime2018**
+    *Thermodynamics in the Quantum Regime.* (See above) Binder is a lead editor of this key volume which includes the section on strong coupling.
+-   **gooldNonequilibriumThermodynamics2019**
+    *Energetic Fluctuations.* Binder, Goold, and Modi investigate energetic fluctuations in open quantum processes.

@@ -2,6 +2,7 @@ import argparse
 import csv
 import os
 import time
+import math
 
 import numpy as np
 
@@ -110,6 +111,8 @@ def run_lt_cg_1(profile, data_dir, rng):
     energies, hs, p, proj_idx = five_level_projector_model(seed=profile.energy_seed)
     e_ref = float(energies[0])
     e_proj = float(energies[proj_idx])
+    
+    N_BOOTSTRAP = 16
 
     rows = []
     for g in profile.coupling_list:
@@ -124,52 +127,78 @@ def run_lt_cg_1(profile, data_dir, rng):
         lam_cont = lambda_ohmic_continuum(profile.eta, profile.omega_c, g)
 
         for beta in profile.beta_list:
+            # Analytic is deterministic
             rho_analytic = normalize_density(analytic_commuting_projector_density(hs, p, beta, lam_disc))
-            rho_path, path_meta = stochastic_path_density(
-                energies=energies,
-                Hs=hs,
-                P=p,
-                proj_idx=proj_idx,
-                beta=beta,
-                omegas=omegas,
-                cs=cs,
-                n_tau=profile.path_tau_points,
-                n_samples=profile.path_samples,
-                rng=rng,
-            )
-            rho_scalar, scalar_meta = stochastic_scalar_density(
-                energies=energies,
-                Hs=hs,
-                P=p,
-                proj_idx=proj_idx,
-                beta=beta,
-                lam=lam_disc,
-                n_samples=profile.scalar_samples,
-                rng=rng,
-            )
-            rho_path = normalize_density(rho_path)
-            rho_scalar = normalize_density(rho_scalar)
+            
+            # Bootstrap loop for stochastic results
+            p4_path_runs = []
+            lam_path_runs = []
+            p4_scalar_runs = []
+            lam_scalar_runs = []
+            
+            x_var_path_runs = []
+            x_var_scalar_runs = []
+            
+            for _ in range(N_BOOTSTRAP):
+                rho_path, path_meta = stochastic_path_density(
+                    energies=energies,
+                    Hs=hs,
+                    P=p,
+                    proj_idx=proj_idx,
+                    beta=beta,
+                    omegas=omegas,
+                    cs=cs,
+                    n_tau=profile.path_tau_points,
+                    n_samples=profile.path_samples,
+                    rng=rng,
+                )
+                rho_scalar, scalar_meta = stochastic_scalar_density(
+                    energies=energies,
+                    Hs=hs,
+                    P=p,
+                    proj_idx=proj_idx,
+                    beta=beta,
+                    lam=lam_disc,
+                    n_samples=profile.scalar_samples,
+                    rng=rng,
+                )
+                rho_path = normalize_density(rho_path)
+                rho_scalar = normalize_density(rho_scalar)
+                
+                pop_pa = _diag_populations(rho_path)
+                pop_sc = _diag_populations(rho_scalar)
+                
+                p4_path_runs.append(pop_pa[proj_idx])
+                p4_scalar_runs.append(pop_sc[proj_idx])
+                
+                lam_est_pa = lambda_est_from_populations(beta, pop_pa[0], pop_pa[proj_idx], e_ref, e_proj)
+                lam_est_sc = lambda_est_from_populations(beta, pop_sc[0], pop_sc[proj_idx], e_ref, e_proj)
+                
+                lam_path_runs.append(lam_est_pa)
+                lam_scalar_runs.append(lam_est_sc)
+                
+                x_var_path_runs.append(path_meta["x_var"])
+                x_var_scalar_runs.append(scalar_meta["x_var"])
+            
+            # Statistics
+            def get_stats(data):
+                mu = np.mean(data)
+                sem = np.std(data, ddof=1) / np.sqrt(len(data))
+                return mu, sem
+                
+            p4_path_mu, p4_path_sem = get_stats(p4_path_runs)
+            p4_scalar_mu, p4_scalar_sem = get_stats(p4_scalar_runs)
+            lam_path_mu, lam_path_sem = get_stats(lam_path_runs)
+            lam_scalar_mu, lam_scalar_sem = get_stats(lam_scalar_runs)
+            
+            x_var_path_mu, _ = get_stats(x_var_path_runs)
+            x_var_scalar_mu, _ = get_stats(x_var_scalar_runs)
 
             pop_an = _diag_populations(rho_analytic)
-            pop_pa = _diag_populations(rho_path)
-            pop_sc = _diag_populations(rho_scalar)
             shift_an = _level_shifts(beta, energies, pop_an)
-            shift_pa = _level_shifts(beta, energies, pop_pa)
-            shift_sc = _level_shifts(beta, energies, pop_sc)
-
             lambda_est_analytic = lambda_est_from_populations(
                 beta, pop_an[0], pop_an[proj_idx], e_ref, e_proj
             )
-            lambda_est_path = lambda_est_from_populations(
-                beta, pop_pa[0], pop_pa[proj_idx], e_ref, e_proj
-            )
-            lambda_est_scalar = lambda_est_from_populations(
-                beta, pop_sc[0], pop_sc[proj_idx], e_ref, e_proj
-            )
-
-            hmf_an = hmf_from_rho(rho_analytic, beta)
-            hmf_an_0 = traceless_gauge(hmf_an)
-            hmf_exp_an = expectation_value(rho_analytic, hmf_an_0)
 
             for cutoff in profile.cutoff_list:
                 rho_ed = normalize_density(exact_reduced_density_bosonic(hs, p, omegas, cs, cutoff, beta))
@@ -178,10 +207,6 @@ def run_lt_cg_1(profile, data_dir, rng):
                 lambda_est_ed = lambda_est_from_populations(
                     beta, pop_ed[0], pop_ed[proj_idx], e_ref, e_proj
                 )
-
-                hmf_ed = hmf_from_rho(rho_ed, beta)
-                hmf_ed_0 = traceless_gauge(hmf_ed)
-                hmf_exp_ed = expectation_value(rho_ed, hmf_ed_0)
 
                 rows.append(
                     {
@@ -199,13 +224,7 @@ def run_lt_cg_1(profile, data_dir, rng):
                         "E4": energies[4],
                         "lambda_disc": lam_disc,
                         "lambda_cont": lam_cont,
-                        "trace_ed_analytic": trace_distance(rho_ed, rho_analytic),
-                        "trace_ed_path": trace_distance(rho_ed, rho_path),
-                        "trace_ed_scalar": trace_distance(rho_ed, rho_scalar),
-                        "trace_path_scalar": trace_distance(rho_path, rho_scalar),
-                        "fro_ed_analytic": fro_error(rho_ed, rho_analytic),
-                        "fro_ed_path": fro_error(rho_ed, rho_path),
-                        "fro_ed_scalar": fro_error(rho_ed, rho_scalar),
+                        # Detailed results for Fig 3
                         "p0_ed": pop_ed[0],
                         "p1_ed": pop_ed[1],
                         "p2_ed": pop_ed[2],
@@ -216,16 +235,6 @@ def run_lt_cg_1(profile, data_dir, rng):
                         "p2_analytic": pop_an[2],
                         "p3_analytic": pop_an[3],
                         "p4_analytic": pop_an[proj_idx],
-                        "p0_path": pop_pa[0],
-                        "p1_path": pop_pa[1],
-                        "p2_path": pop_pa[2],
-                        "p3_path": pop_pa[3],
-                        "p4_path": pop_pa[proj_idx],
-                        "p0_scalar": pop_sc[0],
-                        "p1_scalar": pop_sc[1],
-                        "p2_scalar": pop_sc[2],
-                        "p3_scalar": pop_sc[3],
-                        "p4_scalar": pop_sc[proj_idx],
                         "shift0_ed": shift_ed[0],
                         "shift1_ed": shift_ed[1],
                         "shift2_ed": shift_ed[2],
@@ -236,29 +245,19 @@ def run_lt_cg_1(profile, data_dir, rng):
                         "shift2_analytic": shift_an[2],
                         "shift3_analytic": shift_an[3],
                         "shift4_analytic": shift_an[4],
-                        "shift0_path": shift_pa[0],
-                        "shift1_path": shift_pa[1],
-                        "shift2_path": shift_pa[2],
-                        "shift3_path": shift_pa[3],
-                        "shift4_path": shift_pa[4],
-                        "shift0_scalar": shift_sc[0],
-                        "shift1_scalar": shift_sc[1],
-                        "shift2_scalar": shift_sc[2],
-                        "shift3_scalar": shift_sc[3],
-                        "shift4_scalar": shift_sc[4],
-                        "tr_ed": float(np.real_if_close(np.trace(rho_ed))),
-                        "tr_analytic": float(np.real_if_close(np.trace(rho_analytic))),
-                        "tr_path": float(np.real_if_close(np.trace(rho_path))),
-                        "tr_scalar": float(np.real_if_close(np.trace(rho_scalar))),
+                        # Stochastic Summary Statistics
+                        "p4_path_mean": p4_path_mu,
+                        "p4_path_sem": p4_path_sem,
+                        "p4_scalar_mean": p4_scalar_mu,
+                        "p4_scalar_sem": p4_scalar_sem,
                         "lambda_est_ed": lambda_est_ed,
                         "lambda_est_analytic": lambda_est_analytic,
-                        "lambda_est_path": lambda_est_path,
-                        "lambda_est_scalar": lambda_est_scalar,
-                        "hmf_expect_ed_gauge0": hmf_exp_ed,
-                        "hmf_expect_analytic_gauge0": hmf_exp_an,
-                        "x_var_path": path_meta["x_var"],
-                        "x_var_scalar": scalar_meta["x_var"],
-                        "c_beta_grid": path_meta["c_beta_grid"],
+                        "lambda_est_path_mean": lam_path_mu,
+                        "lambda_est_path_sem": lam_path_sem,
+                        "lambda_est_scalar_mean": lam_scalar_mu,
+                        "lambda_est_scalar_sem": lam_scalar_sem,
+                        "x_var_path_mean": x_var_path_mu,
+                        "x_var_scalar_mean": x_var_scalar_mu,
                         "c_beta_disc": 2.0 * beta * lam_disc,
                     }
                 )
@@ -267,7 +266,6 @@ def run_lt_cg_1(profile, data_dir, rng):
 
 
 def run_lt_cg_2(profile, data_dir, rng):
-    del rng  # Deterministic benchmark.
     energies, hs, p, proj_idx = five_level_projector_model(seed=profile.energy_seed)
     e_ref = float(energies[0])
     e_proj = float(energies[proj_idx])
@@ -291,8 +289,24 @@ def run_lt_cg_2(profile, data_dir, rng):
 
         rho_ed = normalize_density(exact_reduced_density_bosonic(hs, p, omegas, cs, cutoff, beta))
         rho_analytic = normalize_density(analytic_commuting_projector_density(hs, p, beta, lam_disc))
+        
+        # Added stochastic calculation for Fig 2a
+        rho_path, _ = stochastic_path_density(
+            energies=energies,
+            Hs=hs,
+            P=p,
+            proj_idx=proj_idx,
+            beta=beta,
+            omegas=omegas,
+            cs=cs,
+            n_tau=profile.path_tau_points,
+            n_samples=profile.path_samples,
+            rng=rng,
+        )
+        
         pop_ed = _diag_populations(rho_ed)
         pop_an = _diag_populations(rho_analytic)
+        pop_path = _diag_populations(normalize_density(rho_path))
 
         hmf_ed = hmf_from_rho(rho_ed, beta)
         coeffs, fit_residual = fit_hmf_in_basis(hmf_ed, basis)
@@ -320,6 +334,7 @@ def run_lt_cg_2(profile, data_dir, rng):
                 ),
                 "p4_ed": pop_ed[proj_idx],
                 "p4_analytic": pop_an[proj_idx],
+                "p4_path": pop_path[proj_idx],
                 "tr_ed": float(np.real_if_close(np.trace(rho_ed))),
                 "tr_analytic": float(np.real_if_close(np.trace(rho_analytic))),
                 "trace_ed_analytic": trace_distance(rho_ed, rho_analytic),
