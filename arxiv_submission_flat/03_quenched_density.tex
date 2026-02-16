@@ -1,0 +1,170 @@
+\section{Quenched representation of an imaginary-time propagator\label{sec:quenched}}
+
+The Hamiltonian of mean force is defined through an unnormalised Euclidean object,
+$\bar\rho_Q(\beta)=\Tr_X e^{-\beta H_{\mathrm{tot}}}$, whose natural representation
+is an imaginary-time path integral~\cite{feynmanQuantumMechanicsPath1965, kleinertPathIntegralsQuantum2009}. While this representation makes exact treatment of the bath possible, it comes at a conceptual cost: the path
+integral trades operator structure for functional structure. In particular,
+questions about the \emph{operator algebra} underlying the reduced equilibrium
+state are obscured once the dynamics is expressed solely in terms of paths and
+kernels.
+
+If one wishes to understand when a local or otherwise restricted Hamiltonian of
+mean force can exist, it is therefore useful to reconnect the path-integral
+description to an operator-based notion of imaginary-time propagation. The key
+observation is that the reduced equilibrium operator may be regarded as an
+imaginary-time evolution over an interval of length $\beta$, but with a generator
+that need not be time independent. Allowing for explicit $\tau$-dependence in
+the generator provides a natural bridge between the nonlocal Euclidean influence
+functional and a time-ordered exponential acting on the system Hilbert space.
+
+Motivated by this, we introduce a class of imaginary-time propagators generated
+by a $\tau$-dependent Hamiltonian on the system alone. These propagators will be
+constructed for fixed external fields and only subsequently related to the
+microscopic model. We refer to this construction as \emph{quenched} to emphasise
+that the external field is held fixed during the imaginary-time evolution,
+rather than being averaged over inside the exponential. In this sense, the
+imaginary-time generator encodes an effective, path-dependent temperature
+profile whose statistics are imposed only after the operator has been defined.
+
+This quenched representation serves two purposes. First, it provides a
+well-defined operator object whose path-integral representation can be derived
+by standard means, allowing a precise comparison with the Euclidean influence
+functional. Second, it isolates the algebraic content of the problem: all
+nontrivial operator structure is carried by the imaginary-time–dependent
+generator, while nonlocality and temperature dependence enter only through the
+external field. In later sections we show how, for Gaussian environments, the
+microscopic bath generates a specific quenched ensemble of such propagators,
+and how the commuting case collapses this structure to a closed-form Hamiltonian
+of mean force.
+
+For a $\tau$-dependent Hamiltonian $\bar H(\tau)$ acting on the system Hilbert
+space, we define the \emph{quenched} imaginary-time propagator $U(\beta)$ and its
+normalised counterpart $\rho_{\bar H}(\beta)$ by
+\begin{equation}
+\begin{split}
+    U(\beta)
+    &:=
+    \hat\tau \exp\!\left[-\int_{0}^{\beta} d\tau\,\bar H(\tau)\right],
+    \\
+    \rho_{\bar H}(\beta)
+    &:=
+    \frac{1}{Z_{\bar H}}\, U(\beta),
+    \\
+    Z_{\bar H}&:=\Tr\, U(\beta),
+\end{split}
+    \label{eq:quenched_canonical_def}
+\end{equation}
+where $\hat\tau$ orders increasing imaginary times (inverse temperatures) to the left~\cite{feynmanQuantumMechanicsPath1965, kleinertPathIntegralsQuantum2009}.
+The term \emph{quenched} refers to the fact that the $\tau$-dependence is treated as fixed
+during the construction of the propagator; any later interpretation of $\bar H(\tau)$ as
+induced by an external field is imposed only after Eq.~\eqref{eq:quenched_canonical_def}
+has been defined. Note that it is the unnormalised object $U(\beta)$ that enters the
+composite equilibrium trace in the following section.
+
+
+To obtain a path integral we assume the standard kinematic structure
+\begin{equation}
+    \bar H(\tau)=\bar T+\bar V(\tau),
+    \qquad
+    \bar T=\frac{\hat p^2}{2m},
+    \qquad
+    \bar V(\tau)\equiv \bar V(\hat q,\tau),
+    \label{eq:quenched_T_plus_V}
+\end{equation}
+i.e.\ the $\tau$-dependence enters through a potential term that is multiplicative in the
+$|q\rangle$ basis. (This is the case relevant to the influence-functional construction
+in Sec.~\ref{sec:influence_to_hmf}.)
+
+We now discretise $[0,\beta]$ into $N$ slices of width $\Delta=\beta/N$ and define
+$\tau_j=j\Delta$, $\bar H_j:=\bar H(\tau_j)$. The $\tau$-ordered exponential is then
+given by the Trotter product~\cite{kleinertPathIntegralsQuantum2009,schulmanTechniquesApplicationsPath1981}
+\begin{equation}
+    \hat\tau \exp\!\left[-\int_{0}^{\beta} d\tau\,\bar H(\tau)\right]
+    =\lim_{N\to\infty}\, e^{-\Delta \bar H_{N}}\cdots e^{-\Delta \bar H_{1}}e^{-\Delta \bar H_{0}}.
+    \label{eq:quenched_timeslice}
+\end{equation}
+Insert $N$ resolutions of the identity in the $|q\rangle$ basis between factors, with
+$q_0=q_i$ and $q_{N+1}=q_f$, to obtain the kernel
+\begin{equation}
+    Z_\beta\,\bar\rho(q_f,q_i;\beta)
+    =
+    \lim_{N\to\infty}
+    \int \prod_{j=1}^{N} dq_j
+    \prod_{j=0}^{N}
+    \left\langle q_{j+1}\right| e^{-\Delta \bar H_j}\left|q_j\right\rangle.
+    \label{eq:quenched_kernel_product}
+\end{equation}
+
+For small $\Delta$ we use a first-order Trotter splitting (sufficient in the continuum
+limit)~\cite{kleinertPathIntegralsQuantum2009}
+\begin{equation}
+    e^{-\Delta(\bar T+\bar V_j)}
+    =
+    e^{-\Delta \bar T}\,e^{-\Delta \bar V_j}
+    +\mathcal O(\Delta^2),
+    \qquad
+    \bar V_j:=\bar V(\hat q,\tau_j),
+    \label{eq:trotter_split}
+\end{equation}
+so that
+\begin{equation}
+    \langle q_{j+1}|e^{-\Delta \bar H_j}|q_j\rangle
+    =
+    \langle q_{j+1}|e^{-\Delta \bar T}|q_j\rangle\;
+    e^{-\Delta \bar V(q_j,\tau_j)}
+    +\mathcal O(\Delta^2).
+    \label{eq:short_time_kernel_split}
+\end{equation}
+
+The kinetic matrix element is evaluated by inserting a momentum resolution of
+the identity~\cite{feynmanQuantumMechanicsPath1965,schulmanTechniquesApplicationsPath1981}:
+\begin{align}
+    \langle q_{j+1}|e^{-\Delta \bar T}|q_j\rangle
+    &=
+    \int \frac{dp}{2\pi}\,
+    \langle q_{j+1}|p\rangle\langle p|q_j\rangle\,e^{-\Delta p^2/(2m)}
+    \nonumber\\
+    &=
+    \sqrt{\frac{m}{2\pi\Delta}}\,
+    \exp\!\left[-\frac{m}{2\Delta}(q_{j+1}-q_j)^2\right].
+    \label{eq:kinetic_short_time}
+\end{align}
+\begin{widetext}
+Substituting Eq.~\eqref{eq:kinetic_short_time} and Eq.~\eqref{eq:short_time_kernel_split} into
+Eq.~\eqref{eq:quenched_kernel_product} yields
+\begin{equation}
+    \bar\rho(q_f,q_i;\beta)
+    =
+    \lim_{\Delta\to 0}\frac{1}{Z_\beta}
+    \int \prod_{j=1}^{N} dq_j
+    \prod_{j=0}^{N}
+    \left(\sqrt{\frac{m}{2\pi\Delta}}\right)
+    \exp\!\left[
+        -\sum_{j=0}^{N}
+        \Delta\left(
+            \frac{m}{2}\left(\frac{q_{j+1}-q_j}{\Delta}\right)^2
+            +\bar V(q_j,\tau_j)
+        \right)
+    \right].
+    \label{eq:quenched_discrete_PI}
+\end{equation}
+
+In the limit $N\to\infty$ (i.e.\ $\Delta\to 0$), Eq.~\eqref{eq:quenched_discrete_PI} becomes the
+Euclidean path integral~\cite{feynmanQuantumMechanicsPath1965,kleinertPathIntegralsQuantum2009,groscheHandbookFeynmanPath1998}
+\begin{equation}
+    \rho_{\bar H}(q_f,q_i;\beta)
+    =
+    \frac{1}{Z_{\bar H}}
+    \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q(\tau)\;
+    \exp\!\left[
+        -\int_0^\beta d\tau\,
+        \left(
+            \frac{m}{2}\dot q(\tau)^2+\bar V(q(\tau),\tau)
+        \right)
+    \right].
+    \label{eq:quenched_continuum_PI}
+\end{equation}
+\end{widetext}
+The Euclidean action $S[\bar q]=\int_0^\beta d\tau\,\big[\frac{m}{2}\dot q^2+\bar V(q,\tau)\big]$
+appearing in the exponent defines the system action referred to in subsequent
+sections.
