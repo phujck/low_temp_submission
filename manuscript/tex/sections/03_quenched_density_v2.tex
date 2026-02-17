@@ -66,7 +66,7 @@ given by the Trotter product~\cite{kleinertPathIntegralsQuantum2009,schulmanTech
 Inserting $N$ resolutions of the identity~\cite{kleinertPathIntegralsQuantum2009} in the $|q\rangle$ basis between factors, with
 $q_0=q_i$ and $q_{N+1}=q_f$, we obtain the kernel
 \begin{equation}
-    Z_\beta\,\bar\rho(q_f,q_i;\beta)
+    \bar\rho(q_f,q_i;\beta)
     =
     \lim_{N\to\infty}
     \int \prod_{j=1}^{N} dq_j
@@ -115,7 +115,7 @@ Eq.~\eqref{eq:quenched_kernel_product} yields
 \begin{equation}
     \bar\rho(q_f,q_i;\beta)
     =
-    \lim_{\Delta\to 0}\frac{1}{Z_\beta}
+    \lim_{\Delta\to 0}
     \int \prod_{j=1}^{N} dq_j
     \prod_{j=0}^{N}
     \left(\sqrt{\frac{m}{2\pi\Delta}}\right)
@@ -130,7 +130,7 @@ Eq.~\eqref{eq:quenched_kernel_product} yields
 \end{equation}
 
 In the limit $N\to\infty$ (i.e.\ $\Delta\to 0$), Eq.~\eqref{eq:quenched_discrete_PI} becomes the
-Euclidean path integral~\cite{feynmanQuantumMechanicsPath1965,kleinertPathIntegralsQuantum2009,groscheHandbookFeynmanPath1998}
+Euclidean path integral~\cite{feynmanQuantumMechanicsPath1965,kleinertPathIntegralsQuantum2009,groscheHandbookFeynmanPath1998}, such that the reduced density (normnalised by $Z_{\bar H}$) is given by
 \begin{equation}
     \rho_{\bar H}(q_f,q_i;\beta)
     =
