@@ -6,7 +6,7 @@ $bblFile = "$sourceDir/main_v2.bbl"
 
 if (Test-Path $outputDir) { Remove-Item $outputDir -Recurse -Force }
 New-Item -ItemType Directory -Path $outputDir | Out-Null
-New-Item -ItemType Directory -Path "$outputDir/figures" | Out-Null
+# New-Item -ItemType Directory -Path "$outputDir/figures" | Out-Null
 
 # Function to inline \input
 function Flatten-Tex($filePath) {
@@ -39,19 +39,24 @@ $flatContent = Flatten-Tex $mainTex
 # 2. Fix paths and copy figures
 $finalContent = @()
 foreach ($line in $flatContent) {
-    if ($line -match '\\includegraphics\[(.*)\]\{(.*)\}') {
-        $opts = $matches[1]
-        $figPath = $matches[2]
+    if ($line -match '\\includegraphics(\[(.*)\])?\{(.*)\}') {
+        $opts = $matches[2]
+        $figPath = $matches[3]
         $figName = Split-Path $figPath -Leaf
         
         # Resolve path relative to manuscript/tex
         $fullFigPath = Join-Path $sourceDir $figPath
-        # Normalize
-        $fullFigPath = [System.IO.Path]::GetFullPath($fullFigPath)
+        # Resolve to absolute path to handle .. correctly
+        $fullFigPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($fullFigPath)
         
         if (Test-Path $fullFigPath) {
-            Copy-Item $fullFigPath -Destination "$outputDir/figures/$figName"
-            $finalContent += "\includegraphics[$opts]{figures/$figName}"
+            Copy-Item $fullFigPath -Destination "$outputDir/$figName"
+            if ($opts) {
+                $finalContent += "\includegraphics[$opts]{$figName}"
+            }
+            else {
+                $finalContent += "\includegraphics{$figName}"
+            }
         }
         else {
             Write-Host "Warning: Figure not found: $fullFigPath"
