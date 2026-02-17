@@ -10,7 +10,7 @@ New-Item -ItemType Directory -Path $outputDir | Out-Null
 
 # Function to inline \input
 function Flatten-Tex($filePath) {
-    echo "Processing $filePath"
+    Write-Host "Processing $filePath"
     $content = Get-Content $filePath
     $newContent = @()
     foreach ($line in $content) {
@@ -63,9 +63,15 @@ foreach ($line in $flatContent) {
             $finalContent += $line
         }
     }
-    elseif ($line -match '\\bibliography\{.*\}') {
-        # Comment out bibliography, we use bbl
-        $finalContent += "% \bibliography{...} replaced by .bbl content"
+    if ($line -match '\\bibliography\{.*\}') {
+        # Inline the .bbl file content
+        if (Test-Path "$outputDir/ms.bbl") {
+            $finalContent += "% Inlining ms.bbl"
+            $finalContent += Get-Content "$outputDir/ms.bbl"
+        }
+        else {
+            $finalContent += "% Warning: ms.bbl not found, bibliography skipped"
+        }
     }
     else {
         $finalContent += $line
