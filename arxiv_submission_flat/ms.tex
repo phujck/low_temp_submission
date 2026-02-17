@@ -278,7 +278,7 @@ The Euclidean action $S[\bar q]=\int_0^\beta d\tau\,\big[\frac{m}{2}\dot q^2+\ba
 appearing in the exponent defines the system action referred to in subsequent
 sections. We note that for finite-dimensional systems, while the specific form of the path integral measure changes (e.g., to a sum over discrete trajectories or coherent states), the quenched density representation retains precisely the same form~\cite{weissQuantumDissipativeSystems2012, altlandCondensedMatterField2010}. The separation into a bare system action and a bath-induced stochastic driving is a consequence of the bath properties alone, and does not depend on the dimensionality of the system Hilbert space~\cite{leggettDynamicsDissipativeTwostate1987}.
 \section{\label{sec:influence_to_hmf}From Influence Functionals to the Hamiltonian of Mean Force}
-Having established the equivalence between the quenched density and the standard Euclidean path integral in the previous section, we now outline the specific form of the reduced system when coupled to a harmonic bath. Following the influence-functional formalism \cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988} and specifically its stochastic representation for Gaussian baths \cite{mccaulPartitionfreeApproachOpen2017c, mccaulDrivingSpinbosonModels2018a, mccaulHowWinFriends2021b}. A closely related Hubbard--Stratonovich unravelling underlies partition-free stochastic Liouville formulations of Gaussian environments and equilibrated initial conditions~\cite{mccaulPartitionfreeApproachOpen2017c}. Recent work also develops a time-local minimally extended-state-space embedding (QD-MESS) via influence-functional decomposition and Hubbardâ€“Stratonovich unravelling, recovering Caldeiraâ€“Leggett and Smoluchowski-type limits as special cases~\cite{XuAnkerholdEPJST2025}. The resulting reduced density matrix admits the imaginary-time path integral representation:
+Having established the equivalence between the quenched density and the standard Euclidean path integral in the previous section, we now outline the specific form of the reduced system when coupled to a harmonic bath. Following the influence-functional formalism \cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988} and specifically its stochastic representation for Gaussian baths \cite{mccaulPartitionfreeApproachOpen2017c, mccaulDrivingSpinbosonModels2018a, mccaulHowWinFriends2021b}. The resulting reduced density matrix admits the imaginary-time path integral representation:
 \begin{widetext}
 \begin{equation}
     \bar\rho_Q(q_f,q_i;\beta) = Z_X(\beta) \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q\; \exp\Bigg[ -S_Q[q] + \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau' f\big(q(\tau)\big) K(\tau-\tau') f\big(q(\tau')\big) \Bigg].
@@ -292,22 +292,20 @@ Here $Z_X(\beta)=\Tr_X e^{-\beta H_X}$ is the free bath partition function, $S_Q
 \end{equation}
 Related exact Gaussian-bath embeddings that trade nonlocal memory for time-local dynamics in a minimally extended state space are developed in Ref.~\cite{XuAnkerholdEPJST2025}; here we instead emphasise the Euclidean equilibrium generator and its exact closure conditions.
 
-While the representation \eqref{eq:reduced_effective_PI} is exact, it is nonlocal (bilocal) in imaginary time. This nonlocality can be resolved by a Hubbard - Stratonovich (HS) transformation \cite{hubbardCalculationPartitionFunctions1959a, stratonovich1957QDistro}, which decouples the bilocal interaction by introducing an auxiliary Gaussian field $\xi(\tau)$. This step provides the bridge to an operator-level representation of $\bar{\rho}_Q$ as a Gaussian average over the local quenched canonical densities discussed in Sec.~\ref{sec:quenched}:
+While the representation in Eq.\eqref{eq:reduced_effective_PI} is exact, it is nonlocal (bilocal) in imaginary time. This nonlocality can be resolved by a Hubbard - Stratonovich (HS) transformation \cite{hubbardCalculationPartitionFunctions1959a, stratonovich1957QDistro}, which decouples the bilocal interaction by introducing an auxiliary Gaussian field $\xi(\tau)$. This step provides the bridge to an operator-level representation of $\bar{\rho}_Q$ as a Gaussian average over the local quenched canonical densities discussed in Sec.~\ref{sec:quenched}:
 \begin{equation}
-\begin{split}
-    \bar\rho_Q(\beta) 
-    &= 
-    Z_X(\beta)\,\mathbb E_\xi\bigg[ \\
-    &\quad \hat{\mathcal{T}}\exp\!\left(-\int_0^\beta d\tau\,\bar{H}(\tau;\xi)\right) \bigg],
-\end{split}
+    \bar{\rho}_Q(\beta) = Z_X(\beta)\,\mathbb{E}_\xi\bigg[\hat{\mathcal{T}}\exp\!\left(-\int_0^\beta d\tau\,\bar{H}(\tau;\xi)\right) \bigg],
     \label{eq:bar_rho_as_quenched_average}
 \end{equation}
+where $\bar{H}(\tau;\xi) = H_Q - \xi(\tau)f$ is the time-dependent quenched Hamiltonian.
 The statistical properties of the auxiliary field $\xi(\tau)$ are set by the influence kernel \cite{mccaulPartitionfreeApproachOpen2017c,mccaulDrivingSpinbosonModels2018a,mccaulHowWinFriends2021b}
 \begin{equation}
     \mathbb{E}_\xi[\xi(\tau)] = 0, \quad \mathbb{E}_\xi[\xi(\tau)\xi(\tau')] = K(\tau-\tau').
     \label{eq:noise_statistics}
 \end{equation}
-This operator representation maps directly to the quenched density framework. The challenge now lies in performing the average over $\xi$. To do so, we must isolate the stochastic term. Moving to the interaction picture with respect to $H_Q$, the propagator factorises as
+This Hubbard--Stratonovich unravelling is the same as that underlying partition-free stochastic Liouville formulations of Gaussian environments and equilibrated initial conditions~\cite{mccaulPartitionfreeApproachOpen2017c}. Recent work also develops a time-local minimally extended-state-space embedding (QD-MESS) via influence-functional decomposition and Hubbardâ€“Stratonovich unravelling, recovering Caldeiraâ€“Leggett and Smoluchowski-type limits as special cases~\cite{XuAnkerholdEPJST2025}.
+
+Having performed this transformation, the operator representation maps directly to the quenched density framework. The challenge now lies in performing the average over $\xi$. To do so, we must isolate the stochastic term. Moving to the interaction picture with respect to $H_Q$, the propagator factorises as
 \begin{equation}
     \hat{\mathcal{T}}e^{-\int_0^\beta d\tau\,[H_Q - \xi(\tau)f]} = e^{-\beta H_Q} \hat{\mathcal{T}}e^{\int_0^\beta d\tau\, \xi(\tau) f(\tau)},
     \label{eq:interaction_picture_split}
