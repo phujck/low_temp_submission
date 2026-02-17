@@ -47,7 +47,7 @@ Having specified the composite dynamics, we define the Hamiltonian of mean force
 form reproduces the reduced equilibrium object up to a chosen normalisation. If
 the total system is at inverse temperature $\beta$, the unnormalised global
 equilibrium operator is $e^{-\beta H_{\mathrm{tot}}}$, then the reduced
-(unnormalise) equilibrium operator is
+(unnormalised) equilibrium operator is
 \begin{equation}
     \bar{\rho}_Q(\beta)\equiv \Tr_X\, e^{-\beta H_{\mathrm{tot}}},
     \label{eq:reduced_equilibrium_operator}
@@ -76,7 +76,7 @@ which is bilocal in $\tau$ and whose kernel is fixed by the bath spectral
 density $J(\omega)$~\cite{moixEquilibriumreducedDensityMatrix2012, mccaulPartitionfreeApproachOpen2017c, mccaulDrivingSpinbosonModels2018a, mccaulHowWinFriends2021b}. While this gives an exact representation of the reduced equilibrium operator, it does not generically yield a compact local expression for $H_{\mathrm{MF}}$. The reduced equilibrium object is a path integral over the system degrees of freedom, rather than a
 simple exponential $e^{-\beta H_{\mathrm{eff}}}$ of a time-independent operator.
 Extracting $H_{\mathrm{MF}}$ - the logarithm of this ordered object - is
-therefore an inverse representability problem, not merely a question of coupling
+therefore an inverse representability problem~\cite{ColemanYukalov2000RDM,Mazziotti2007RDMMechanics,LiuChristandlVerstraete2007NRepQMA,Klyachko2006QuantumMarginal}, not merely a question of coupling
 strength or temperature~\cite{talknerColloquiumStatisticalMechanics2020, hovhannisyanHamiltonianMeanForce2020}.
 
 Theere are two logically distinct aspects to this problem. First, the bath produces an \emph{imaginary-time nonlocal} self-interaction with a memory kernel determined by $J(\omega)$. This can be resolved with a local representation of the path integral, which can be achieved via a Hubbard-Stratonovich (HS) transformation~\cite{hubbardCalculationPartitionFunctions1959a, stratonovich1957QDistro}. This mapping allows for a return to the operator picture by replacing the nonlocal self-interaction with a local coupling to a stochastic auxiliary field. However, this transformation introduces stochasticity that must be averaged over, and it is in this averaging process that we encounter the second obstruction: the algebraic properties of the system and its coupling. While the HS transformation allows one to return to the operator picture, to obtain the exact state now requires an averaging procedure over the stochastic auxiliary field. When $[H_Q,f]\neq 0$, evaluating this average analytically presents an (apparently) \footnote{In the sequel we shall revisit and resolve this issue.} insuperable difficulty. Nevertheless, in the commuting sector $[H_Q,f]=0$, the algebraic obstruction disappears, and the averaging can be performed. Under these conditions, influence functional contains exactly the ingredients required to construct $H_{\mathrm{MF}}(\beta)$ in closed form.
