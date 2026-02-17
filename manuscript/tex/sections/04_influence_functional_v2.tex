@@ -1,5 +1,5 @@
 \section{\label{sec:influence_to_hmf}From Influence Functionals to the Hamiltonian of Mean Force}
-Having established the equivalence between the quenched density and the standard Euclidean path integral in the previous section, we now outline the specific form of the reduced system when coupled to a harmonic bath. Following the influence-functional formalism \cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988} and specifically its stochastic representation for Gaussian baths \cite{mccaulPartitionfreeApproachOpen2017c, mccaulDrivingSpinbosonModels2018a, mccaulHowWinFriends2021b}, the resulting reduced density matrix admits the imaginary-time path integral representation:
+Having established the equivalence between the quenched density and the standard Euclidean path integral in the previous section, we now outline the specific form of the reduced system when coupled to a harmonic bath. Following the influence-functional formalism \cite{feynmanTheoryGeneralQuantum1963a,caldeiraQuantumTunnellingDissipative1983a,grabertQuantumBrownianMotion1988} and specifically its stochastic representation for Gaussian baths \cite{mccaulPartitionfreeApproachOpen2017c, mccaulDrivingSpinbosonModels2018a, mccaulHowWinFriends2021b}. A closely related Hubbard--Stratonovich unravelling underlies partition-free stochastic Liouville formulations of Gaussian environments and equilibrated initial conditions~\cite{McCaulLorenzKantorovich2017}. Recent work also develops a time-local minimally extended-state-space embedding (QD-MESS) via influence-functional decomposition and Hubbard–Stratonovich unravelling, recovering Caldeira–Leggett and Smoluchowski-type limits as special cases~\cite{XuAnkerholdEPJST2025}. The resulting reduced density matrix admits the imaginary-time path integral representation:
 \begin{widetext}
 \begin{equation}
     \bar\rho_Q(q_f,q_i;\beta) = Z_X(\beta) \int_{q(0)=q_i}^{q(\beta)=q_f}\!\!\mathcal D q\; \exp\Bigg[ -S_Q[q] + \frac{1}{2}\int_0^\beta d\tau\int_0^\beta d\tau' f\big(q(\tau)\big) K(\tau-\tau') f\big(q(\tau')\big) \Bigg].
@@ -11,6 +11,7 @@ Here $Z_X(\beta)=\Tr_X e^{-\beta H_X}$ is the free bath partition function, $S_Q
     K(\tau) = \frac{1}{\pi}\int_0^\infty d\omega\, J(\omega) \frac{\cosh\!\left[\omega\left(\frac{\beta}{2}-|\tau|\right)\right]} {\sinh\!\left(\frac{\beta\omega}{2}\right)}.
     \label{eq:kernel_spectral}
 \end{equation}
+Related exact Gaussian-bath embeddings that trade nonlocal memory for time-local dynamics in a minimally extended state space are developed in Ref.~\cite{XuAnkerholdEPJST2025}; here we instead emphasize the Euclidean equilibrium generator and its exact closure conditions.
 
 While the representation \eqref{eq:reduced_effective_PI} is exact, it is nonlocal (bilocal) in imaginary time. This nonlocality can be resolved by a Hubbard - Stratonovich (HS) transformation \cite{hubbardCalculationPartitionFunctions1959a, stratonovich1957QDistro}, which decouples the bilocal interaction by introducing an auxiliary Gaussian field $\xi(\tau)$. This step provides the bridge to an operator-level representation of $\bar{\rho}_Q$ as a Gaussian average over the local quenched canonical densities discussed in Sec.~\ref{sec:quenched}:
 \begin{equation}
@@ -72,7 +73,25 @@ This is (up to normalisation) the canonical exponential form for a thermal state
 \end{equation}
 $\Tr\,e^{-\beta H_{\mathrm{MF}}}=1$. The only nontrivial operator content is then the correction $-\lambda f^2$, which is temperature independent.
 
-A slight but interesting consequence of this result concerns integrable systems where the coupling operator $f$ is a conserved quantity ($[H_Q, f]=0$). In this case, the Hamiltonian of mean force $H_{\mathrm{MF}}$ shares the same eigenbasis as the bare system Hamiltonian. The strong coupling to the bath therefore does not mix the system energy levels, but rather induces a level-dependent energy shift $-\lambda f_n^2$, where $f_n$ are the eigenvalues of the coupling operator. The integrability of the open system is thus preserved in the sense that the equilibrium state remains diagonal in the energy basis of the isolated system, but depending on the specific structure of $f$, the bath can induce a non-trivial operator-level effect on the reduced equilibrium state. 
+An immediate consequence that can be inferred from this result is that it is identical to the result in the classical mean-force construction
+\cite{campisiTalknerHanggi2009Solvable,talknerColloquiumStatisticalMechanics2020,cerisolaQuantumClassicalCorrespondence2024}.
+For a classical phase-space coordinate $z$,
+\begin{equation}
+\begin{split}
+    H_{\mathrm{MF}}^{\mathrm{cl}}(z;\beta)
+    &=
+    -\frac{1}{\beta} \\
+    &\quad \times \log\!\left[
+    \frac{\int dX\,e^{-\beta\left(H_Q(z)+H_X(X)+H_{\mathrm{int}}(z,X)\right)}}
+    {\int dX\,e^{-\beta H_X(X)}}
+    \right],
+\end{split}
+    \label{eq:hmf_classical_def_sec3}
+\end{equation}
+and for Gaussian linear coupling this yields the same quadratic correction $-\kappa_0 f(z)^2/2$ up to a scalar shift. This equilvance can be understand mostly easily through the link to Koopman von-Neumann dynamics. In real time, classical evolution is generated by the Liouville/Koopman operator $\mathcal L_H=\{\,\cdot\,,H\}$, with propagator $e^{t\mathcal L_H}$.
+For equilibrium however, the relevant generator is the Hamiltonian in the Gibbs state. This is true in both the quantum and classical scenarios, but in the latter case all observable operators commute identically. Hence the classical equilibrium construction always lies in the commuting sector.
+
+Another slight (but interesting) consequence of this result concerns integrable systems where the coupling operator $f$ is a conserved quantity ($[H_Q, f]=0$). In this case, the Hamiltonian of mean force $H_{\mathrm{MF}}$ shares the same eigenbasis as the bare system Hamiltonian. The strong coupling to the bath therefore does not mix the system energy levels, but rather induces a level-dependent energy shift $-\lambda f_n^2$, where $f_n$ are the eigenvalues of the coupling operator. The integrability of the open system is thus preserved in the sense that the equilibrium state remains diagonal in the energy basis of the isolated system, but depending on the specific structure of $f$, the bath can induce a non-trivial operator-level effect on the reduced equilibrium state. 
 
 Interestingly $\lambda$ coincides with the static potential renormalisation
 $\frac{1}{2}\sum_k c_k^2/(m_k\omega_k^2)$ of the Caldeira-Leggett model. If the standard counterterm $+\lambda f^2$ has been absorbed into $H_Q$ (as stated in Sec.~\ref{sec:model}), the bath-induced shift $-\lambda f^2$ cancels it exactly. In this case, $H_{\mathrm{MF}}$ reduces to the bare system Hamiltonian $H_Q^{\mathrm{bare}}$, and the normalised mean-force Gibbs state coincides with the bare-system Gibbs state. In other words, in the commuting sector with translational invariance enforced, the bath has no operator-level effect on the reduced equilibrium

@@ -27,12 +27,20 @@ Get-ChildItem "$sourceDir/sections/*.tex" | ForEach-Object {
 # Copy bbl (if exists)
 if (Test-Path "$buildDir/main_v2.bbl") {
     Copy-Item "$buildDir/main_v2.bbl" "$outputDir/main.bbl"
-} else {
+}
+else {
     Write-Warning "No .bbl file found in $buildDir. You may need to compile the manuscript first."
 }
 
+
 # Copy figures (flattened)
 Get-ChildItem "$figuresDir/*.pdf" | ForEach-Object {
+    Copy-Item $_.FullName "$outputDir/$($_.Name)"
+}
+
+# Copy compiled PDF (if exists) from manuscript root
+Get-ChildItem "manuscript/*.pdf" | ForEach-Object {
+    Write-Host "Including compiled PDF: $($_.Name)"
     Copy-Item $_.FullName "$outputDir/$($_.Name)"
 }
 
@@ -54,11 +62,11 @@ function Rewrite-In-File {
     # Matches \includegraphics[...]{../../.../filename.pdf} or similar
     # This regex looks for the last part of the path in the second brace argument
     $content = [Regex]::Replace($content, '\\includegraphics(\[.*?\])?\{.*[/\\](.+?)\}', {
-        param($match)
-        $opts = $match.Groups[1].Value
-        $filename = $match.Groups[2].Value
-        return "\includegraphics$opts{$filename}"
-    })
+            param($match)
+            $opts = $match.Groups[1].Value
+            $filename = $match.Groups[2].Value
+            return "\includegraphics$opts{$filename}"
+        })
 
     Set-Content -Path $FilePath -Value $content -NoNewline
 }

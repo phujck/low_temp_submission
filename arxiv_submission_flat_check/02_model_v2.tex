@@ -1,0 +1,86 @@
+\section{\label{sec:model}The Total Hamiltonian and the Hamiltonian of Mean Force}
+The Hamiltonian of mean force is defined by tracing the global equilibrium
+operator, and therefore presupposes a concrete model for the composite
+Hamiltonian. We consider a system with Hamiltonian $H_Q$ (system coordinates
+$q$), coupled to a bath with Hamiltonian $H_X$ (bath coordinates $x$) through an
+interaction $H_I$, so that
+\begin{equation}
+    H_{\mathrm{tot}}=H_Q+H_X+H_I.
+    \label{eq:Htot_model}
+\end{equation}
+To obtain an explicit influence-functional representation we specialise to a
+Gaussian environment with linear coupling, i.e.\ a Caldeira-Leggett bath \cite{caldeiraQuantumTunnellingDissipative1983a}. This
+choice is appropriate when the bath is large and near equilibrium, so that its
+fluctuations are well captured by a quadratic Hamiltonian and the leading
+(system-local) term in the interaction dominates.
+
+The bath is modeled as a collection of harmonic oscillators,
+\begin{equation}
+    H_X=\sum_k\left(\frac{p_k^2}{2m_k}+\frac{1}{2}m_k\omega_k^2 x_k^2\right),
+    \label{eq:HX_model}
+\end{equation}
+and we take a linear coupling to a system operator $f\equiv f(q)$,
+\begin{equation}
+    H_I=\sum_k c_k f(q)\, x_k,
+    \label{eq:HI_model}
+\end{equation}
+so that
+\begin{equation}
+    H_{\mathrm{tot}} = H_Q + \sum_k \left( \frac{p_k^2}{2m_k} + \frac{1}{2}m_k\omega_k^2 x_k^2 + c_k f(q)\, x_k \right).
+    \label{eq:Htot_full}
+\end{equation}
+As is standard in Caldeira-Leggett constructions, one may include a counter-term
+proportional to $f(q)^2$ to enforce translational invariance of the bath
+coordinates and to compensate the static potential renormalisation induced by
+the coupling \cite{caldeiraQuantumTunnellingDissipative1983a}. In what follows we absorb any such counterterm into the
+definition of $H_Q$.
+
+Although the microscopic bath is parametrised by $\{m_k,\omega_k,c_k\}$, its
+influence on the system enters only through the spectral density~\cite{weissQuantumDissipativeSystems2012, breuerTheoryOpenQuantum2002},
+\begin{equation}
+    J(\omega) = \frac{\pi}{2} \sum_k \frac{c_k^2}{m_k \omega_k} \delta(\omega-\omega_k),
+    \label{eq:spectral_density}
+\end{equation}
+which compactly encodes the bath two-point structure and fixes the imaginary-time influence kernel used below~\cite{feynmanTheoryGeneralQuantum1963a}.
+
+Having specified the composite dynamics, we define the Hamiltonian of mean force by tracing the global Hamiltonian of mean force $H_{\mathrm{MF}}(\beta)$ as the operator whose Gibbs
+form reproduces the reduced equilibrium object up to a chosen normalisation. If
+the total system is at inverse temperature $\beta$, the unnormalised global
+equilibrium operator is $e^{-\beta H_{\mathrm{tot}}}$, then the reduced
+(unnormalise) equilibrium operator is
+\begin{equation}
+    \bar{\rho}_Q(\beta)\equiv \Tr_X\, e^{-\beta H_{\mathrm{tot}}},
+    \label{eq:reduced_equilibrium_operator}
+\end{equation}
+where $\Tr_X$ traces out the bath degrees of freedom. The Hamiltonian of mean
+force is defined by
+\begin{equation}
+    e^{-\beta H_{\mathrm{MF}}(\beta)}
+    \equiv
+    \frac{\Tr_X\, e^{-\beta H_{\mathrm{tot}}}}{Z_X(\beta)},
+    \qquad
+    Z_X(\beta)\equiv \Tr_X\, e^{-\beta H_X},
+    \label{eq:HMF_def}
+\end{equation}
+or equivalently
+\begin{equation}
+H_{\mathrm{MF}}(\beta)=-(1/\beta)\log\!\big[\Tr_X e^{-\beta H_{\mathrm{tot}}}\big]
+\end{equation}
+up to an additive scalar fixed by the choice of $Z_X$.
+
+For a harmonic bath linearly coupled through a collective coordinate, the bath
+can be eliminated exactly, yielding the Feynman-Vernon influence functional
+\cite{feynmanTheoryGeneralQuantum1963a, grabertQuantumBrownianMotion1988, ingoldSpecificHeatAnomalies2009, hanggiFiniteQuantumDissipation2008}.
+In equilibrium this produces a Euclidean (imaginary-time) influence functional
+which is bilocal in $\tau$ and whose kernel is fixed by the bath spectral
+density $J(\omega)$~\cite{moixEquilibriumreducedDensityMatrix2012, mccaulPartitionfreeApproachOpen2017c, mccaulDrivingSpinbosonModels2018a, mccaulHowWinFriends2021b}. While this gives an exact representation of the reduced equilibrium operator, it does not generically yield a compact local expression for $H_{\mathrm{MF}}$. The reduced equilibrium object is a path integral over the system degrees of freedom, rather than a
+simple exponential $e^{-\beta H_{\mathrm{eff}}}$ of a time-independent operator.
+Extracting $H_{\mathrm{MF}}$ - the logarithm of this ordered object - is
+therefore an inverse representability problem, not merely a question of coupling
+strength or temperature~\cite{talknerColloquiumStatisticalMechanics2020, hovhannisyanHamiltonianMeanForce2020}.
+
+Theere are two logically distinct aspects to this problem. First, the bath produces an \emph{imaginary-time nonlocal} self-interaction with a memory kernel determined by $J(\omega)$. This can be resolved with a local representation of the path integral, which can be achieved via a Hubbard-Stratonovich (HS) transformation~\cite{hubbardCalculationPartitionFunctions1959a, stratonovich1957QDistro}. This mapping allows for a return to the operator picture by replacing the nonlocal self-interaction with a local coupling to a stochastic auxiliary field. However, this transformation introduces stochasticity that must be averaged over, and it is in this averaging process that we encounter the second obstruction: the algebraic properties of the system and its coupling. While the HS transformation allows one to return to the operator picture, to obtain the exact state now requires an averaging procedure over the stochastic auxiliary field. When $[H_Q,f]\neq 0$, evaluating this average analytically presents an (apparently) \footnote{In the sequel we shall revisit and resolve this issue.} insuperable difficulty. Nevertheless, in the commuting sector $[H_Q,f]=0$, the algebraic obstruction disappears, and the averaging can be performed. Under these conditions, influence functional contains exactly the ingredients required to construct $H_{\mathrm{MF}}(\beta)$ in closed form.
+
+Summarising, our strategy to find $H_{\mathrm{MF}}(\beta)$ is to rewrite the reduced state such that the the contributions from the bath statistics (entering only through $J(\omega)$) and the system-coupling algebra may be cleanly separated. To achieve this, it is necessary to first develop a formal treatment connecting the quenched density representation of the reduced system to a path integral representation of the influence functional. 
+
+

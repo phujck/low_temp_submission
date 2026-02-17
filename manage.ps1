@@ -27,7 +27,8 @@ elseif ($Command -eq "paper") {
         $title = $titleLine.Matches.Groups[1].Value
         # Sanitize title for filename
         $cleanTitle = $title -replace '[\\/:*?"<>|]', '' -replace '\s+', ' '
-    } else {
+    }
+    else {
         $cleanTitle = "main_v2"
     }
 
@@ -43,6 +44,10 @@ elseif ($Command -eq "paper") {
     }
     
     Pop-Location
+}
+elseif ($Command -eq "arxiv") {
+    & $PSCommandPath paper
+    & "$PSScriptRoot\.agent\scripts\flatten_arxiv.ps1"
 }
 elseif ($Command -eq "clean") {
     Remove-Item -Recurse -Force manuscript/build/*
