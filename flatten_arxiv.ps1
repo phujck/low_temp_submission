@@ -72,7 +72,7 @@ foreach ($line in $flatContent) {
             $finalContent += $line
         }
     }
-    if ($line -match '\\bibliography\{.*\}') {
+    elseif ($line -match '\\bibliography\{.*\}') {
         # Inline the .bbl file content
         if (Test-Path "$outputDir/ms.bbl") {
             $finalContent += "% Inlining ms.bbl"
