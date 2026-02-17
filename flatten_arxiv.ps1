@@ -1,96 +1,103 @@
-
 $sourceDir = "manuscript/tex"
 $outputDir = "arxiv_submission_flat"
 $mainTex = "$sourceDir/main_v2.tex"
 $bblFile = "$sourceDir/main_v2.bbl"
 
+# 1. Clean and Create Output Directory
 if (Test-Path $outputDir) { Remove-Item $outputDir -Recurse -Force }
 New-Item -ItemType Directory -Path $outputDir | Out-Null
-# New-Item -ItemType Directory -Path "$outputDir/figures" | Out-Null
+Write-Host "Created output directory: $outputDir"
 
-# Function to inline \input
-function Flatten-Tex($filePath) {
-    Write-Host "Processing $filePath"
-    $content = Get-Content $filePath
-    $newContent = @()
-    foreach ($line in $content) {
-        if ($line -match '\\input\{(.*)\}') {
-            $inputPath = "$sourceDir/$($matches[1]).tex"
-            if (-not (Test-Path $inputPath)) { $inputPath = "$sourceDir/$($matches[1])" }
-            if (Test-Path $inputPath) {
-                # $newContent += "% Inlined: $inputPath"
-                $newContent += Get-Content $inputPath
-            }
-            else {
-                Write-Host "Warning: Input file not found: $inputPath"
-                $newContent += $line
-            }
-        }
-        else {
-            $newContent += $line
-        }
-    }
-    return $newContent
-}
-
-# 1. Flatten main TeX
-$flatContent = Flatten-Tex $mainTex
-
-# 1.5. Copy BBL -> ms.bbl (Moved before processing to allow inlining)
+# 2. Copy BBL file first (crucial for valid inlining)
 if (Test-Path $bblFile) {
     Copy-Item $bblFile -Destination "$outputDir/ms.bbl"
-    Write-Host "Copied bbl file to $outputDir/ms.bbl"
+    Write-Host "Copied .bbl file."
 }
 else {
-    Write-Host "Error: .bbl file not found at $bblFile"
+    Write-Host "WARNING: .bbl file not found at $bblFile"
 }
 
-# 2. Fix paths and copy figures
-$finalContent = @()
-foreach ($line in $flatContent) {
-    if ($line -match '\\includegraphics(\[(.*)\])?\{(.*)\}') {
-        $opts = $matches[2]
-        $figPath = $matches[3]
-        $figName = Split-Path $figPath -Leaf
-        
-        # Resolve path relative to manuscript/tex
-        $fullFigPath = Join-Path $sourceDir $figPath
-        # Resolve to absolute path to handle .. correctly
-        $fullFigPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($fullFigPath)
-        
-        if (Test-Path $fullFigPath) {
-            Copy-Item $fullFigPath -Destination "$outputDir/$figName"
-            if ($opts) {
-                $finalContent += "\includegraphics[$opts]{$figName}"
+# 3. Define Recursive Processing Function
+function Process-TexContent {
+    param ($filePath)
+    
+    $processedLines = @()
+    if (-not (Test-Path $filePath)) {
+        Write-Host "ERROR: File not found for processing: $filePath"
+        return $processedLines
+    }
+
+    $content = Get-Content $filePath
+    
+    foreach ($line in $content) {
+        # A. Handle \input{...}
+        if ($line -match '^\s*\\input\{(.*)\}') {
+            $subPathRel = $matches[1]
+            $subPath = "$sourceDir/$subPathRel"
+            if (-not ($subPath -match '\.tex$')) { $subPath += ".tex" }
+            
+            # Resolve absolute path for safety
+            $subPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($subPath)
+
+            if (Test-Path $subPath) {
+                Write-Host "Inlining input: $subPathRel"
+                # Recursively process the input file
+                $processedLines += Process-TexContent -filePath $subPath
             }
             else {
-                $finalContent += "\includegraphics{$figName}"
+                Write-Host "WARNING: Input file not found: $subPath"
+                $processedLines += $line
             }
         }
+        # B. Handle \includegraphics[...]{...}
+        elseif ($line -match '\\includegraphics(\[.*\])?\{(.*)\}') {
+            $opts = $matches[1] # Includes the []
+            $figPathRel = $matches[2]
+            $figName = Split-Path $figPathRel -Leaf
+            
+            # Construct absolute path to the figure source
+            $figSrcPath = Join-Path $sourceDir $figPathRel
+            $figSrcPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($figSrcPath)
+
+            if (Test-Path $figSrcPath) {
+                # Copy figure to root of output dir
+                Copy-Item $figSrcPath -Destination "$outputDir/$figName"
+                # Write the new line with flattened path
+                $processedLines += "\includegraphics$opts{$figName}"
+            }
+            else {
+                Write-Host "WARNING: Figure not found: $figSrcPath"
+                $processedLines += $line
+            }
+        }
+        # C. Handle \bibliography{...}
+        elseif ($line -match '\\bibliography\{.*\}') {
+            if (Test-Path "$outputDir/ms.bbl") {
+                Write-Host "Inlining bibliography from ms.bbl"
+                $processedLines += "% Inlining ms.bbl"
+                $processedLines += Get-Content "$outputDir/ms.bbl"
+            }
+            else {
+                Write-Host "WARNING: Cannot inline bibliography, ms.bbl missing."
+                $processedLines += $line
+            }
+        }
+        # D. Regular Line
         else {
-            Write-Host "Warning: Figure not found: $fullFigPath"
-            $finalContent += $line
+            $processedLines += $line
         }
     }
-    elseif ($line -match '\\bibliography\{.*\}') {
-        # Inline the .bbl file content
-        if (Test-Path "$outputDir/ms.bbl") {
-            $finalContent += "% Inlining ms.bbl"
-            $finalContent += Get-Content "$outputDir/ms.bbl"
-        }
-        else {
-            $finalContent += "% Warning: ms.bbl not found, bibliography skipped"
-        }
-    }
-    else {
-        $finalContent += $line
-    }
+    return $processedLines
 }
 
-# 3. Write flattened TeX
+# 4. Run Processing
+Write-Host "Processing main tex file..."
+$finalContent = Process-TexContent -filePath $mainTex
+
+# 5. Write Result
 $finalContent | Set-Content "$outputDir/ms.tex" -Encoding UTF8
+Write-Host "Written flattened content to $outputDir/ms.tex"
 
-# 5. Zip
+# 6. Zip It
 Compress-Archive -Path "$outputDir/*" -DestinationPath "arxiv_submission_flat.zip" -Force
-
-Write-Host "Done. Created arxiv_submission_flat.zip"
+Write-Host "Created archive: arxiv_submission_flat.zip"
