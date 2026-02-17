@@ -36,6 +36,15 @@ function Flatten-Tex($filePath) {
 # 1. Flatten main TeX
 $flatContent = Flatten-Tex $mainTex
 
+# 1.5. Copy BBL -> ms.bbl (Moved before processing to allow inlining)
+if (Test-Path $bblFile) {
+    Copy-Item $bblFile -Destination "$outputDir/ms.bbl"
+    Write-Host "Copied bbl file to $outputDir/ms.bbl"
+}
+else {
+    Write-Host "Error: .bbl file not found at $bblFile"
+}
+
 # 2. Fix paths and copy figures
 $finalContent = @()
 foreach ($line in $flatContent) {
@@ -80,14 +89,6 @@ foreach ($line in $flatContent) {
 
 # 3. Write flattened TeX
 $finalContent | Set-Content "$outputDir/ms.tex" -Encoding UTF8
-
-# 4. Copy BBL -> ms.bbl
-if (Test-Path $bblFile) {
-    Copy-Item $bblFile -Destination "$outputDir/ms.bbl"
-}
-else {
-    Write-Host "Error: .bbl file not found!"
-}
 
 # 5. Zip
 Compress-Archive -Path "$outputDir/*" -DestinationPath "arxiv_submission_flat.zip" -Force
