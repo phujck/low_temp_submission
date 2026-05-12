@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\newcommand{\RC}[1]{\textbf{\textit{Referee comment.}} \textit{#1}}
+\newcommand{\AR}[1]{\textbf{Response.} #1}
+\newcommand{\msloc}[1]{\textit{Manuscript location:} #1}
+
+\begin{document}
+
+\begin{center}
+{\Large Response to Referee Report}\\[0.5em]
+{\large Mean-Force Hamiltonians from Influence Functionals}\\[0.25em]
+Gerard McCaul
+\end{center}
+
+We thank the reviewer for their positive assessment of the manuscript and for their helpful comments. We have revised the manuscript to address each point raised. The changes are deliberately minor and clarifying, and do not alter the result or conclusions. The specific revisions are outlined belowl
+
+\section*{Response to Specific Points}
+
+\RC{Figure 2(b) displays visible variance in the stochastically estimated reorganisation energy $\lambda_{\rm est}/g^2$, in particular, at small $\beta$ and large coupling $g$. The manuscript does not state how many noise trajectories were used, nor discuss convergence criteria for the stochastic estimator. Including this information (even briefly in the caption or in Section V) would allow the reader to assess the practical efficiency of the stochastic method and would strengthen the methodological contribution of Section V.}
+
+\AR{A few sentences have to Section V to describe the numerical setup, and the number of samples used to generate the figures.}
+
+
+\RC{The numerical benchmarks are performed exclusively for a projector coupling $f=|4\rangle\langle 4|$, which is perhaps the simplest possible commuting coupling. While this is sufficient to validate the theoretical prediction, a brief comment on whether a second coupling structure (e.g., $f=s_z$ for a spin system, or a position-like operator for a harmonic oscillator in the commuting limit) was tested, or why the projector case is considered representative, would be useful. This need not require additional figures.}
+
+\AR{A short explanation has been added to section V, immediately after the coupling is introduced. It emphasises that for any commuting Hermitian coupling $f=\sum_n f_n |n\rangle\langle n|$, the result gives level shifts $-\lambda f_n^2$. The projector benchmark is then chosen because it is a sparse interaction that demonstrates all the essential features of the commuting case. Furthermore, by localising the bath-induced operator content to a single level, the population and HMF-coefficient diagnostics are especially transparent}
+
+
+\RC{The analysis in Section IV contains an important and somewhat surprising observation: when the standard counterterm is included in $H_Q$, the HMF reduces to the bare system Hamiltonian, meaning the bath has no operator-level effect on the reduced equilibrium state in the commuting sector. This point deserves more attention. Presently the point is embedded within a longer paragraph and may be overlooked by a reader not already familiar with the counterterm convention. A clearly displayed equation or a brief highlighted remark would add the value for this finding.}
+
+\AR{This is a point well taken, and the text now contains an explicit discussion of this cancellation, highlighted with the displayed equation
+\[
+    H_Q=H_Q^{\rm bare}+\lambda f^2
+    \quad\Longrightarrow\quad
+    H_{\rm MF}(\beta)=H_Q^{\rm bare}+\mathrm{const}.
+\]
+ Moreover, this question provoked some deeper thought as to why it should be the case that these terms cancel. Consequently some additional motivation has been provided as to why we should expect this result to be more than a formal coincidence.}
+
+
+\RC{One of the open problems is the extension to the noncommuting case. It is deferred to ``forthcoming work'' and partially to footnote [59]. While the authors' honesty about the current limitations is appreciated, even a schematic indication of the technical route (e.g., whether some perturbative techniques are envisaged) would substantially strengthen the outlook for the reader. The closing remark ``What governs equilibrium? Algebra.'' is evocative, but leaves the non-expert reader without a concrete sense of the path forward.}
+
+\AR{Yes, I'm afraid I'm being rather gnomic here! This is largely due to the fact that successfully performing the non-commuting calculation requires several non-obvious steps in succession. I've extended the discussion to sketch very briefly how this can be done, but the real answer ought to be out in the wild in the coming weeks. I'm open to sharing this calculation upon request, but otherwise will have to beg some forebearance at leaving this thread so visibly loose.}
+
+
+\RC{The Ohmic bath with exponential cutoff is used throughout the numerics, but no comment is given on whether the framework or the closed-form result depends on this specific form. Since $\lambda$ is defined by a spectral integral (Eq.~27), the result is of course general in $\lambda$. A sentence noting this explicitly would prevent potential confusion and add clarity.}
+
+\AR{I have added an explicit clarification that the closed commuting-sector result depends on the bath only through the reorganisation integral
+\[
+    \lambda=\frac{1}{\pi}\int_0^\infty \frac{J(\omega)}{\omega}\,d\omega.
+\]
+The Ohmic exponential cutoff is therefore only the concrete spectral choice used for the numerical benchmark.}
+
+
+\section*{Response to Minor Remarks}
+
+\RC{In Introduction, p.~1, ``Ultimately, the source of these difficulties \ldots'' suggests the singular form, i.e.\ ``lies''. The word ``Theere'' at the start of the second paragraph of Section III (p.~3) is a typo and should be corrected.}
+
+\AR{Both typographical errors have been corrected.}
+
+
+\RC{Ref.~[37] is cited as ``submitted'' to Reviews of Modern Physics. The authors may wish to check whether this has since been published and update accordingly.}
+
+\AR{I checked the current bibliographic record and have updated the entry to the published \emph{Reviews of Modern Physics} accepted manuscript citation}
+
+\RC{The notation for the Liouville/Koopman operator in terms of $\{\cdot,H\}$ would be better to clarify as the Poisson bracket for a non-specialist reader.}
+
+\AR{I have clarified explicitly that $\{\,\cdot\,,H\}$ denotes the classical Poisson bracket.}
+
+
+In the course of preparing this revision I have also corrected a small number of pre-existing typographical and grammatical infelicities. Thanks again for the positive and constructive report, and I hope the revised manuscript now addresses all requested clarifications.
+
+\end{document}
